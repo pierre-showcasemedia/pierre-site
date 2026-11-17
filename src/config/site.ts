@@ -22,7 +22,7 @@ export const site = {
   city: "Madison",
   serviceArea: "Greater Madison, Dane County, Wisconsin and Northern Illinois",
   address: "3315 Ambassador Dr, Madison, WI 53718",
-  travel: "No travel fee within 30 miles of our east Madison location.",
+  travel: "No travel fee within 25 miles of Madison and Sun Prairie. Farther, travel is $0.50 a mile round trip.",
   email: "mediahero@showcasemedia.pro",
   phoneDisplay: "(608) 345-2123",
   phoneE164: "+16083452123",

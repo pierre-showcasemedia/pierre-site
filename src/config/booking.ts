@@ -57,7 +57,7 @@ export const BOOKING = {
 
   areaLine: "Based in east Madison, serving Greater Madison, Dane County, Wisconsin and Northern Illinois.",
 
-  outsideAreaNote: "No travel fee within 30 miles of our east Madison location. Farther than that, Pierre will confirm any travel fee with you before the shoot.",
+  outsideAreaNote: "No travel fee within 25 miles of Madison and Sun Prairie. Farther, travel is $0.50 a mile round trip, and Pierre confirms it with you before the shoot.",
 
   includedNote: "Pick the size of the home, then a package. A free basic floor plan comes with every Showcase Photography shoot and every 3D tour.",
 
@@ -74,6 +74,7 @@ export const BOOKING = {
   payment: "Your gallery arrives in your client portal. Pierre sends your invoice, and your downloads unlock as soon as it's paid.",
 
   terms: [
+    "Cancelling or rescheduling with less than 24 hours notice costs 50% of the order, plus any travel fees if Pierre is already on the way.",
     "Drone flights depend on FAA rules, local rules, safety and the weather, and may not be available everywhere.",
     "3D virtual tours are hosted for up to 1 year.",
     "Free floor plans are based on the actual scanned space, not the finished square footage.",

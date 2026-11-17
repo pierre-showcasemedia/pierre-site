@@ -628,7 +628,7 @@ export function BookingForm() {
           <div className="border border-line bg-white/50 p-6 md:p-7 lg:sticky lg:top-28">
             <p className="label text-mute">Your estimate</p>
             <p className={`mt-4 text-[15px] ${where ? "" : "text-mute"}`}>{where || "Your property"}</p>
-            {outside ? <p className="mt-1 text-sm text-mute">More than 30 miles from Madison. Any travel fee to be confirmed.</p> : null}
+            {outside ? <p className="mt-1 text-sm text-mute">More than 25 miles from Madison or Sun Prairie: travel $0.50 a mile round trip, to be confirmed.</p> : null}
             <ul className="mt-6 space-y-3 border-t border-line pt-5 text-sm">
               {!hasLines ? <li className="text-mute">Pick the size of the home and a package to see the price.</li> : null}
               {lines.map((l) => {

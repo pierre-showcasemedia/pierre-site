@@ -92,7 +92,7 @@ function archiveCopy(p: Obj): Obj {
     brokerage: p.brokerage ?? "",
     payment: "Payment due before delivery: pays online, the gallery unlocks once paid",
     address: prop.address,
-    county: `${text(p.service_area)}${p.outside_area ? " (more than 30 miles from Madison, travel fee to confirm)" : ""}`,
+    county: `${text(p.service_area)}${p.outside_area ? " (more than 25 miles from Madison or Sun Prairie, travel $0.50 a mile round trip to confirm)" : ""}`,
     date: `${text(p.desired_date)}, ${when}`,
     listing_launch: p.launch_date ?? "",
     services: lines.map((l) => `${text(l.name)}${typeof l.qty === "number" && l.unit !== "item" && l.unit !== "package" ? ` (${l.qty} ${text(l.unit)})` : ""}: ${l.priced === false ? "quoted" : `${l.from ? "from " : ""}${usd(Number(l.cents) || 0)}`}`).join("; "),

@@ -79,7 +79,7 @@ export default function ServicesPage() {
           <dl className="grid gap-6 text-[15px] leading-relaxed text-ink-soft sm:grid-cols-2 md:col-span-9">
             <div className="border-t border-line pt-4">
               <dt className="label text-ink">Where</dt>
-              <dd className="mt-3">Greater Madison, Dane County, Wisconsin and Northern Illinois. No travel fee within 30 miles of our east Madison location.</dd>
+              <dd className="mt-3">Greater Madison, Dane County, Wisconsin and Northern Illinois. No travel fee within 25 miles of Madison and Sun Prairie; farther, $0.50 a mile round trip.</dd>
             </div>
             <div className="border-t border-line pt-4">
               <dt className="label text-ink">Booking</dt>

@@ -58,26 +58,29 @@ the website, and a copy lands in Formspree.
 
 ## What's on the site, and where it came from
 
-- **Prices:** his published price sheet (his current site, read Nov 17 2026).
-  Every service, bundle and add-on has his price; only large group portraits
-  (10+) and timelapse are quoted, as on his sheet. Sizes follow his bands:
-  tours and tour bundles over 7,500 sq ft are quoted, and properties over
-  10,000 sq ft are quoted. The free floor plan's large-property fee ($30, $50,
-  $75) is added for homes over 3,000 sq ft.
+- **Prices:** his Nov 2026 price sheet PDF (PriceSheet-Nov2026.pdf), plus
+  Showcase Photography ($175) and the drone and 3D tour prices on their own
+  from his current site (the PDF doesn't list them). Only large group
+  portraits (10+) and timelapse are quoted, as on his sheet. Tours and tour
+  bundles over 7,500 sq ft are quoted, and properties over 10,000 sq ft are
+  quoted. The free floor plan's large-property fee ($30, $50, $75) is added
+  for homes over 3,000 sq ft.
+- **Travel:** free within 25 miles of Madison and Sun Prairie, then $0.50 a
+  mile round trip. The form can't measure miles, so Pierre confirms the fee.
+- **Cancellation:** under 24 hours notice, 50% plus any travel fees if he is
+  already on the way (in the booking terms).
+- **Agent rates** (Stark Preferred, Preferred Agent, HomeTeam4U) are private
+  and are NOT in this repo: anything in `src/lib/pricing.ts` ships in the
+  website's code. They live in the studio (`src/lib/agent-rates.ts` and its
+  `HANDOFF.md`).
 - **Copy:** his About page (bio in his own words), his Testimonials (six
-  quotes, word for word), his contact details and travel rule (no travel fee
-  within 30 miles of east Madison).
+  quotes, word for word), his contact details.
 - **Photos and logo:** from his current site (his own work), resized for the web.
 
 ## Open items
 
-- His agent rate sheets (Stark Company Realtors, Preferred Agent, HomeTeam4U):
-  they are not on the public form. Those clients are invoiced at their rates
-  from the studio. The Nov 2026 PDF price sheets he sent by Dropbox could not
-  be opened from the build machine: compare them against the published prices
-  in `src/lib/pricing.ts` and change anything that differs.
-- Cancellation policy and any other booking terms (none are promised until he
-  gives them).
-- Instagram, Facebook or YouTube links (hidden until set in `src/config/site.ts`).
+- HomeTeam4U's Showcase Photography price (his sheet shows "$150 to 165").
+- What "Prices do not have the $150 Stark covered fee deducted" means for billing.
+- Shoot days and latest start time; Instagram, Facebook or YouTube links.
 - His walkthrough films (YouTube) and Matterport tour links, if he wants them
   on the Work pages.

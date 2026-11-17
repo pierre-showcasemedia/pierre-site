@@ -68,7 +68,8 @@ With none of them set (your laptop, a preview with no keys) the form runs in **t
 
 Changing a price: edit the table in **both** `src/lib/pricing.ts` here and `src/lib/booking-pricing.ts` in the studio, bump `PRICING_VERSION`, then run `npx tsx scripts/check-pricing.ts` (with the studio repo next to this one as `../pierre-studio`, or `STUDIO_DIR=...`). It proves the two files are identical.
 
-Where the prices came from: Pierre's published price sheet on his current site
-(Nov 17 2026). His agent rate sheets (Stark Company Realtors, Preferred Agent,
-HomeTeam4U) are not on the public form; those clients are invoiced at their own
-rates from the studio.
+Where the prices came from: Pierre's Nov 2026 price sheet PDF, plus Showcase
+Photography and the drone and 3D tour prices on their own from his current
+site. His agent rate sheets are private and live only in the studio
+(`src/lib/agent-rates.ts`): never put them in `src/lib/pricing.ts`, which
+ships in the website's code.

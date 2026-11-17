@@ -1,0 +1,240 @@
+[
+  {
+    "slug": "interiors",
+    "name": "Interiors",
+    "location": "Greater Madison",
+    "headline": "Bright, true to life interiors, room by room.",
+    "description": "Kitchens, living spaces, bedrooms and baths, with Showcase editing: HDR detail, window views and fire in the fireplace.",
+    "credits": "Photography by Showcase Media",
+    "videos": [],
+    "cover": "/images/projects/interiors/01.jpg",
+    "images": [
+      {
+        "src": "/images/projects/interiors/01.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/02.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/03.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/04.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/05.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/06.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/07.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/08.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/09.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/10.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/11.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/12.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/13.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/14.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/15.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/16.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/17.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/18.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/19.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/20.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/interiors/21.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/interiors/22.jpg",
+        "w": 1600,
+        "h": 1066
+      }
+    ]
+  },
+  {
+    "slug": "exteriors",
+    "name": "Exteriors and Aerials",
+    "location": "Dane County, Wisconsin",
+    "headline": "The home, the lot and the neighborhood, from the ground and the air.",
+    "description": "Exteriors and drone aerials of homes across Dane County, from city lots to country estates.",
+    "credits": "Photography by Showcase Media",
+    "videos": [],
+    "cover": "/images/projects/exteriors/01.jpg",
+    "images": [
+      {
+        "src": "/images/projects/exteriors/01.jpg",
+        "w": 1600,
+        "h": 1068
+      },
+      {
+        "src": "/images/projects/exteriors/02.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/exteriors/03.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/exteriors/04.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/exteriors/05.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/exteriors/06.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/exteriors/07.jpg",
+        "w": 1600,
+        "h": 1066
+      }
+    ]
+  },
+  {
+    "slug": "twilight",
+    "name": "Twilight",
+    "location": "Greater Madison",
+    "headline": "Homes at dusk, with every light on.",
+    "description": "Real twilight photography, photographed near dusk with the sky at its best.",
+    "credits": "Photography by Showcase Media",
+    "videos": [],
+    "cover": "/images/projects/twilight/01.jpg",
+    "images": [
+      {
+        "src": "/images/projects/twilight/01.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/twilight/02.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/twilight/03.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/twilight/04.jpg",
+        "w": 1600,
+        "h": 1194
+      }
+    ]
+  },
+  {
+    "slug": "commercial",
+    "name": "Commercial and Architecture",
+    "location": "Madison, Wisconsin",
+    "headline": "Downtown Madison from the street, the rooftops and the air.",
+    "description": "Commercial, multi-family and architectural work across Madison: buildings, rooftop amenities and the skyline at dusk.",
+    "credits": "Photography by Showcase Media",
+    "videos": [],
+    "cover": "/images/projects/commercial/01.jpg",
+    "images": [
+      {
+        "src": "/images/projects/commercial/01.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/commercial/02.jpg",
+        "w": 1600,
+        "h": 1200
+      },
+      {
+        "src": "/images/projects/commercial/03.jpg",
+        "w": 1600,
+        "h": 1066
+      },
+      {
+        "src": "/images/projects/commercial/04.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/commercial/05.jpg",
+        "w": 1600,
+        "h": 1194
+      }
+    ]
+  }
+]

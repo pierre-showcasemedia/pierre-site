@@ -69,7 +69,7 @@ export const BOOKING = {
 
   quotedClientNote: "Commercial and architectural work is quoted to the project. Pick the closest size and Pierre will send a quote.",
 
-  hours: "Pierre confirms the exact time with you.",
+  hours: "Pierre shoots Monday to Friday, starting from 9:30 AM to 4 PM, and confirms every time with you. Weekends and earlier or later times are by request: add them in the notes.",
 
   payment: "Your gallery arrives in your client portal. Pierre sends your invoice, and your downloads unlock as soon as it's paid.",
 

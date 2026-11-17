@@ -36,6 +36,7 @@ export function Footer() {
               <li><a href={site.text} className="link-underline">Call or text {site.phoneDisplay}</a></li>
               {site.instagram.url ? <li><a href={site.instagram.url} className="link-underline">Instagram {site.instagram.handle}</a></li> : null}
               {site.facebook.url ? <li><a href={site.facebook.url} className="link-underline">Facebook</a></li> : null}
+              {site.youtube.url ? <li><a href={site.youtube.url} className="link-underline">YouTube {site.youtube.handle}</a></li> : null}
               <li>{site.address}</li>
             </ul>
             <p className="mt-8 text-[15px] leading-relaxed text-white/55">

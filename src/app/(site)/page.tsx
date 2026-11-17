@@ -25,7 +25,7 @@ const jsonLd = {
     { "@type": "AdministrativeArea", name: "Dane County, Wisconsin" },
     { "@type": "AdministrativeArea", name: "Northern Illinois" },
   ],
-  sameAs: [site.instagram.url, site.facebook.url].filter(Boolean),
+  sameAs: [site.instagram.url, site.facebook.url, site.youtube.url].filter(Boolean),
   knowsAbout: ["Real estate photography", "Commercial photography", "Drone photography", "Floor plans", "Matterport 3D tours", "Zillow 3D tours", "Real estate video", "Business portraits"],
 };
 
@@ -54,6 +54,21 @@ export default function Home() {
           sizes="100vw"
           className="animate-hero-drift object-cover object-[50%_60%]"
         />
+        {hero.video.mp4 ? (
+          <video
+            className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={hero.src}
+            aria-hidden="true"
+          >
+            {hero.video.webm ? <source src={hero.video.webm} type="video/webm" /> : null}
+            <source src={hero.video.mp4} type="video/mp4" />
+          </video>
+        ) : null}
         <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/10 to-black/70" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
         <div className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-end px-5 pb-14 md:px-10 md:pb-20">

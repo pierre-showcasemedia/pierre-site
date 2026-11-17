@@ -30,13 +30,13 @@ export const site = {
   text: "sms:+16083452123",
   // Older name kept so shared components still compile: it's his call and text line, not WhatsApp.
   whatsapp: "sms:+16083452123",
-  // Not on his current site: empty hides the link everywhere.
-  instagram: { handle: "", url: "" },
-  facebook: { handle: "", url: "" },
-  youtube: { handle: "", url: "" },
+  // From Pierre (Nov 17 2026). An empty url hides that link everywhere.
+  instagram: { handle: "@showcasemedia.pro", url: "https://www.instagram.com/showcasemedia.pro/" },
+  facebook: { handle: "Showcase Media", url: "https://www.facebook.com/profile.php?id=61575736711486" },
+  youtube: { handle: "@showcasemediapro", url: "https://www.youtube.com/@showcasemediapro" },
   turnaround: "within 24 hours",
   confirmWithin: "the same day",
-  hours: "Pierre confirms the shoot time with you",
+  hours: "Shoots Monday to Friday, starting from 9:30 AM to 4 PM. Pierre confirms every time; weekends and earlier or later times by request",
   bookingLead: "We respond extremely quickly.",
   // How clients pay. Pierre invoices; the gallery unlocks once the invoice is paid.
   payment: {
@@ -45,18 +45,23 @@ export const site = {
   },
   // The share image (Open Graph and schema.org): a home at twilight. 1200 x 630.
   shareImage: { src: "/images/site/share.jpg", width: 1200, height: 630 },
-  // Pixel sizes of the logo files in public/brand (from his current site, Nov 2026)
-  logo: { width: 1200, height: 400 },
-  logoStacked: { width: 1200, height: 400 },
-  mark: { width: 440, height: 381 },
+  // Pixel sizes of the logo files in public/brand (his high-res transparent PNGs, black and white, Nov 17 2026)
+  logo: { width: 2400, height: 801 },
+  logoStacked: { width: 2400, height: 801 },
+  mark: { width: 880, height: 762 },
 };
 
-// The homepage hero: one still, a home at twilight.
+// The homepage hero: a home at twilight. Pierre is making a hero video
+// (Nov 2026): when it's ready, put the files in public/clips/ and fill in
+// video below (an MP4, ideally under 10 MB, plus an optional WebM). It plays
+// muted, looped, behind the headline, never with sound, and the still shows
+// instead for visitors who ask for reduced motion. Empty = the still only.
 export const hero = {
   src: "/images/site/hero.jpg",
   width: 2400,
   height: 1600,
   alt: "A home at twilight with every light on, photographed by Showcase Media",
+  video: { mp4: "", webm: "" },
 };
 
 // Kept from the shared template (components/ScrollHero.tsx). Pierre's homepage uses the still hero above.

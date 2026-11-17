@@ -15,6 +15,8 @@ export default function ContactPage() {
     { label: "Call or text", value: site.phoneDisplay, href: site.text },
     { label: "Studio", value: site.address, href: "" },
     ...(site.instagram.url ? [{ label: "Instagram", value: site.instagram.handle, href: site.instagram.url }] : []),
+    ...(site.facebook.url ? [{ label: "Facebook", value: site.facebook.handle, href: site.facebook.url }] : []),
+    ...(site.youtube.url ? [{ label: "YouTube", value: site.youtube.handle, href: site.youtube.url }] : []),
   ];
   return (
     <section className="mx-auto max-w-[1600px] px-5 pb-28 pt-36 md:px-10 md:pb-40 md:pt-48">

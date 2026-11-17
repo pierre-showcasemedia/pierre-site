@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { site } from "@/config/site";
 
-// Pierre's logo (from his current site, Nov 2026): the script S and SHOWCASE
+// Pierre's logo (his high-res transparent PNGs, Nov 17 2026): the script S and SHOWCASE
 // MEDIA. In public/brand/ (PNG, transparent):
 //   logo-ink.png / logo-white.png   the full lockup, for the nav, bars and footers
 //   mark-ink.png / mark-white.png   the S alone (favicon is src/app/icon.png)

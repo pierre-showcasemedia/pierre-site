@@ -77,10 +77,16 @@ the website, and a copy lands in Formspree.
   quotes, word for word), his contact details.
 - **Photos and logo:** from his current site (his own work), resized for the web.
 
+## The homepage hero video (a slot, ready)
+
+Pierre is making a homepage video. When he sends it: put the MP4 (and an
+optional WebM) in `public/clips/`, set `hero.video` in `src/config/site.ts`
+(for example `{ mp4: "/clips/hero.mp4", webm: "/clips/hero.webm" }`) and push.
+It plays muted and looped behind the headline, never with sound; visitors who
+ask for reduced motion see the still photo. He also has an animated logo
+(ShowcaseMediaAnimate01.mp4) that isn't used yet: an option for later.
+
 ## Open items
 
-- HomeTeam4U's Showcase Photography price (his sheet shows "$150 to 165").
-- What "Prices do not have the $150 Stark covered fee deducted" means for billing.
-- Shoot days and latest start time; Instagram, Facebook or YouTube links.
 - His walkthrough films (YouTube) and Matterport tour links, if he wants them
   on the Work pages.

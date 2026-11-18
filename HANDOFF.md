@@ -88,5 +88,8 @@ ask for reduced motion see the still photo. He also has an animated logo
 
 ## Open items
 
-- His walkthrough films (YouTube) and Matterport tour links, if he wants them
-  on the Work pages.
+- The Video collection (/work/video) has the five YouTube films from his
+  current homepage. Swap or add films with `--video` on add-project, or
+  edit `videos` in `src/data/projects.json`.
+- Matterport tour links, if he wants them on the site (`tours` in
+  `src/config/site.ts`).

@@ -187,6 +187,7 @@ export const services: Service[] = [
     body: "Walkthrough videos edited to music with aerial intro and closing clips, an agent guided tour option, and advanced imaging effects.",
     image: "/images/site/service-video.jpg",
     clip: null,
+    href: "/work/video",
   },
   {
     slug: "twilight",

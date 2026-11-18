@@ -236,5 +236,43 @@
         "h": 1194
       }
     ]
+  },
+  {
+    "slug": "video",
+    "name": "Video",
+    "location": "Greater Madison",
+    "headline": "Walkthrough films, cinematic drone and agent guided tours.",
+    "description": "Walkthrough videos edited to music with aerial intro and closing clips, cinematic drone highlights and agent guided tours.",
+    "credits": "Video by Showcase Media",
+    "videos": [
+      "youtube:Ez4_aVLTZS0",
+      "youtube:JhTqGEetJdw",
+      "youtube:OrBnPv7t9Is",
+      "youtube:cm0-KGbWvg4",
+      "youtube:p2WS3Gv7w8I"
+    ],
+    "cover": "/images/projects/video/01.jpg",
+    "images": [
+      {
+        "src": "/images/projects/video/01.jpg",
+        "w": 1600,
+        "h": 900
+      },
+      {
+        "src": "/images/projects/video/02.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/video/03.jpg",
+        "w": 1600,
+        "h": 1067
+      },
+      {
+        "src": "/images/projects/video/04.jpg",
+        "w": 1600,
+        "h": 890
+      }
+    ]
   }
 ]

@@ -19,8 +19,8 @@ the studio together is in the studio repo's `HANDOFF.md`
 ## 1. GitHub
 
 The code goes in `pierre-showcasemedia/pierre-site`. Push to `main` = live
-once the Vercel project exists. Pushes from the build need the Claude GitHub
-App installed on the pierre-showcasemedia account.
+once the Vercel project exists. The Claude GitHub App is installed on the
+pierre-showcasemedia account (Nov 18), so the build pushes here directly.
 
 ## 2. Vercel
 

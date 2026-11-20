@@ -17,6 +17,10 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.showcasemedia.pro",
   // Client galleries live in the studio app, not on this site.
   portalUrl: process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://portal.showcasemedia.pro",
+  // Galleries from before the new studio stay on Pic-Time (Pierre, Nov 17 2026).
+  // show: true adds a "Past galleries" link next to Client Login in the footer
+  // and the mobile menu. Off until Pierre says yes.
+  pastGalleries: { show: false, label: "Past galleries", url: "https://showcasemediallc.pic-time.com/client" },
   market: "Greater Madison, Dane County and Northern Illinois",
   country: "Wisconsin",
   city: "Madison",

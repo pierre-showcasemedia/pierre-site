@@ -26,6 +26,7 @@ export function Footer() {
               ))}
               <li><Link href="/book" className="link-underline">Book a Shoot</Link></li>
               <li><a href={site.portalUrl} className="link-underline">Client Login</a></li>
+              {site.pastGalleries.show ? <li><a href={site.pastGalleries.url} className="link-underline">{site.pastGalleries.label}</a></li> : null}
             </ul>
           </div>
 

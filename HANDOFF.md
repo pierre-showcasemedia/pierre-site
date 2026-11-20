@@ -79,14 +79,28 @@ the website, and a copy lands in Formspree.
 
 ## The homepage hero video (a slot, ready)
 
-Pierre is making a homepage video. When he sends it: put the MP4 (and an
-optional WebM) in `public/clips/`, set `hero.video` in `src/config/site.ts`
-(for example `{ mp4: "/clips/hero.mp4", webm: "/clips/hero.webm" }`) and push.
+Pierre sent five versions on Nov 20 (the original and Dark30, 40, 50, 60:
+different darkening). The homepage already lays a dark gradient over the
+hero (45% to 70% black), so the original or Dark30 is likely right. With the
+chosen file on this machine:
+
+```bash
+node scripts/add-hero-video.mjs "WebsiteHeroVideo-Dark30.mp4"
+```
+
+It makes `public/clips/hero.mp4` (H.264, 1920 wide, no sound, under 10 MB)
+and a WebM when that is smaller, and fills in `hero.video` in
+`src/config/site.ts`. Check with `npm run dev`, then commit and push.
+`--remove` puts the still photo back.
 It plays muted and looped behind the headline, never with sound; visitors who
 ask for reduced motion see the still photo. He also has an animated logo
 (ShowcaseMediaAnimate01.mp4) that isn't used yet: an option for later.
 
 ## Open items
+
+- Past galleries: `site.pastGalleries.show` in `src/config/site.ts` adds a
+  "Past galleries" link to his Pic-Time page next to Client Login (footer and
+  mobile menu). Off until Pierre says yes (ask on Call 2).
 
 - The Video collection (/work/video) has the five YouTube films from his
   current homepage. Swap or add films with `--video` on add-project, or

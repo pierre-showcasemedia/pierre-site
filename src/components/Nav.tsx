@@ -106,6 +106,7 @@ export function Nav() {
         <div className="mt-auto flex flex-col gap-4">
           <Link href="/book" onClick={() => setOpen(false)} className="btn btn-light w-full">Book a Shoot</Link>
           <a href={site.portalUrl} className="label text-center text-white/70">Client Login</a>
+          {site.pastGalleries.show ? <a href={site.pastGalleries.url} className="label text-center text-white/50">{site.pastGalleries.label}</a> : null}
           <div className="mt-4 flex justify-between text-sm text-white/60">
             <a href={`mailto:${site.email}`}>{site.email}</a>
             <a href={site.text}>Call or text {site.phoneDisplay}</a>

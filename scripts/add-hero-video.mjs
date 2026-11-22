@@ -2,7 +2,8 @@
 //
 //   node scripts/add-hero-video.mjs "<his video file>.mp4"
 //
-// Makes public/clips/hero.mp4 (H.264, 1920 wide, no sound, under 10 MB) and
+// Makes public/clips/hero.mp4 (H.264, 1920 wide or 1280 for a long clip, no
+// sound, under 10 MB) and
 // public/clips/hero.webm (VP9), then fills in hero.video in src/config/site.ts.
 // It plays muted and looped behind the headline; visitors who ask for reduced
 // motion see the still photo. Needs ffmpeg. Undo: --remove.
@@ -38,20 +39,25 @@ if (!existsSync(arg)) {
 }
 
 mkdirSync("public/clips", { recursive: true });
-const ff = (args) => execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", arg, "-an", "-vf", "scale='min(1920,iw)':-2", ...args], { stdio: "inherit" });
+const ff = (width, args) => execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", arg, "-an", "-vf", `scale='min(${width},iw)':-2`, ...args], { stdio: "inherit" });
 const mb = (f) => statSync(f).size / 1e6;
 
-// Raise the quality number (smaller file) until the MP4 fits.
+// Raise the quality number (smaller file) until the MP4 fits. A long clip
+// that won't fit at 1920 wide drops to 1280 rather than going blocky.
 let crf = 24;
+let width = 1920;
 for (;;) {
-  ff(["-c:v", "libx264", "-preset", "slow", "-crf", String(crf), "-pix_fmt", "yuv420p", "-movflags", "+faststart", MP4]);
-  if (mb(MP4) <= LIMIT_MB || crf >= 34) break;
-  crf += 2;
+  ff(width, ["-c:v", "libx264", "-preset", "slow", "-crf", String(crf), "-pix_fmt", "yuv420p", "-movflags", "+faststart", MP4]);
+  if (mb(MP4) <= LIMIT_MB) break;
+  if (crf < 30) crf += 2;
+  else if (width === 1920) { width = 1280; crf = 26; }
+  else if (crf < 34) crf += 2;
+  else break;
 }
-ff(["-c:v", "libvpx-vp9", "-b:v", "0", "-crf", String(crf + 10), "-row-mt", "1", WEBM]);
+ff(width, ["-c:v", "libvpx-vp9", "-b:v", "0", "-crf", String(crf + 10), "-deadline", "good", "-cpu-used", "4", "-row-mt", "1", WEBM]);
 if (mb(WEBM) > mb(MP4)) rmSync(WEBM);
 
 setVideo("/clips/hero.mp4", existsSync(WEBM) ? "/clips/hero.webm" : "");
-console.log(`hero.mp4 ${mb(MP4).toFixed(1)} MB${existsSync(WEBM) ? `, hero.webm ${mb(WEBM).toFixed(1)} MB` : ""}. hero.video is set in ${CONFIG}.`);
+console.log(`${width} wide. hero.mp4 ${mb(MP4).toFixed(1)} MB${existsSync(WEBM) ? `, hero.webm ${mb(WEBM).toFixed(1)} MB` : ""}. hero.video is set in ${CONFIG}.`);
 if (mb(MP4) > LIMIT_MB) console.log(`Note: still over ${LIMIT_MB} MB. A shorter clip will load faster.`);
 console.log("Check it with npm run dev, then commit and push.");

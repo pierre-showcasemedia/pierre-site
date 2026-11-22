@@ -65,7 +65,7 @@ export const hero = {
   width: 2400,
   height: 1600,
   alt: "A home at twilight with every light on, photographed by Showcase Media",
-  video: { mp4: "", webm: "" },
+  video: { mp4: "/clips/hero.mp4", webm: "" },
 };
 
 // Kept from the shared template (components/ScrollHero.tsx). Pierre's homepage uses the still hero above.

@@ -41,7 +41,7 @@ export function ContactForm() {
     return (
       <div>
         <h2 className="display text-5xl">Thank you.</h2>
-        <p className="mt-5 text-[17px] text-ink-soft">Pierre will reply {site.confirmWithin}.</p>
+        <p className="mt-5 text-[17px] text-ink-soft">We&apos;ll reply {site.confirmWithin}.</p>
         {test ? (
           <pre className="mt-8 whitespace-pre-wrap border border-accent/40 p-5 text-xs text-ink-soft">
             Test mode is on. Nothing was sent. Formspree would receive:{"\n\n"}{JSON.stringify(test, null, 2)}

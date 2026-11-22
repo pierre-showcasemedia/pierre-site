@@ -19,8 +19,8 @@ export default function ServicesPage() {
         title={<>Everything a <span className="text-mute">property</span> needs</>}
         intro={
           <>
-            From Showcase Photography to drone, 3D tours and video, delivered {site.turnaround}. Pick a bundle and
-            save, or tell Pierre about the property and he&apos;ll put together the right package.
+            From Showcase Photography to drone, 3D tours and video. Pick a bundle and
+            save, or tell us about the property and we&apos;ll put together the right package.
           </>
         }
       />
@@ -79,15 +79,15 @@ export default function ServicesPage() {
           <dl className="grid gap-6 text-[15px] leading-relaxed text-ink-soft sm:grid-cols-2 md:col-span-9">
             <div className="border-t border-line pt-4">
               <dt className="label text-ink">Where</dt>
-              <dd className="mt-3">Greater Madison, Dane County, Wisconsin and Northern Illinois. No travel fee within 25 miles of Madison and Sun Prairie; farther, $0.50 a mile round trip.</dd>
+              <dd className="mt-3">Greater Madison, Dane County, Wisconsin and Northern Illinois. No travel fee within 25 miles of our location on the east side of Madison, near Sun Prairie; farther, $0.50 a mile round trip.</dd>
             </div>
             <div className="border-t border-line pt-4">
               <dt className="label text-ink">Booking</dt>
-              <dd className="mt-3">Book online, or call or text Pierre. No waiting days: we respond extremely quickly.</dd>
+              <dd className="mt-3">Book online, or call or text us. No waiting days: we respond extremely quickly.</dd>
             </div>
             <div className="border-t border-line pt-4">
               <dt className="label text-ink">Turnaround</dt>
-              <dd className="mt-3">Photos within 24 hours, 48 hours guaranteed. Walkthrough videos in 48 hours.</dd>
+              <dd className="mt-3">Photos within 24 hours, 48 hours guaranteed. All videos in 48 to 72 hours.</dd>
             </div>
             <div className="border-t border-line pt-4">
               <dt className="label text-ink">Paying</dt>

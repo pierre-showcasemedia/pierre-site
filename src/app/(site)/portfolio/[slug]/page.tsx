@@ -16,7 +16,7 @@ export function generateStaticParams() {
   return projects.length ? projects.map((p) => ({ slug: p.slug })) : [{ slug: "coming-soon" }];
 }
 
-export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/portfolio/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) return {};
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   };
 }
 
-export default function ProjectPage({ params }: PageProps<"/work/[slug]">) {
+export default function ProjectPage({ params }: PageProps<"/portfolio/[slug]">) {
   return (
     <Suspense fallback={<div className="h-[86svh] min-h-[560px] bg-night" />}>
       <Project params={params} />
@@ -37,7 +37,7 @@ export default function ProjectPage({ params }: PageProps<"/work/[slug]">) {
   );
 }
 
-async function Project({ params }: Pick<PageProps<"/work/[slug]">, "params">) {
+async function Project({ params }: Pick<PageProps<"/portfolio/[slug]">, "params">) {
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) notFound();
@@ -98,7 +98,7 @@ async function Project({ params }: Pick<PageProps<"/work/[slug]">, "params">) {
         {[{ label: "Previous", p: prev }, { label: "Next", p: next }].map(({ label, p: q }) => (
           <Link
             key={label}
-            href={`/work/${q.slug}`}
+            href={`/portfolio/${q.slug}`}
             className={`group flex items-center gap-6 px-5 py-10 transition-colors hover:bg-sand md:px-10 ${label === "Next" ? "md:flex-row-reverse md:border-l md:border-line md:text-right" : ""}`}
           >
             <div className="relative h-20 w-28 shrink-0 overflow-hidden bg-sand">

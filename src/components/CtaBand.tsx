@@ -4,7 +4,7 @@ import { site } from "@/config/site";
 
 export function CtaBand({
   image = "/images/site/cta.jpg",
-  title = "Tell Pierre about your property.",
+  title = "Tell us about your property.",
 }: {
   image?: string;
   title?: string;

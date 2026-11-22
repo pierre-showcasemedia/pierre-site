@@ -16,7 +16,7 @@ export default function BookPage() {
           <h1 className="display mt-5 text-6xl md:text-8xl">Request a date</h1>
         </div>
         <p className="text-[15px] leading-relaxed text-ink-soft md:col-span-4 md:col-start-9">
-          Pick the size of the home, see your estimate and send the request. Pierre confirms {site.confirmWithin}. Prefer to talk it through? Call or text{" "}
+          Pick the size of the property, see your estimate and send the request. We confirm {site.confirmWithin}. Prefer to talk it through? Call or text{" "}
           <a href={site.call} className="underline underline-offset-2">{site.phoneDisplay}</a> or email{" "}
           <a href={`mailto:${site.email}`} className="underline underline-offset-2">{site.email}</a>
         </p>

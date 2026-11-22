@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { HowItWorks } from "@/components/HowItWorks";
-import { ProjectTile } from "@/components/ProjectTile";
 import { Reveal } from "@/components/Reveal";
 import { ServiceMedia } from "@/components/ServiceMedia";
 import { hero, services, site, testimonials, trustedBy } from "@/config/site";
@@ -29,15 +28,20 @@ const jsonLd = {
   knowsAbout: ["Real estate photography", "Commercial photography", "Drone photography", "Floor plans", "Matterport 3D tours", "Zillow 3D tours", "Real estate video", "Business portraits"],
 };
 
+// What we do, at a glance, just below the landing video (Pierre, Nov 23 2026:
+// short, like bullet points; "ready in 24 hours" is standard now, so it's out).
+// A first draft for Pierre to rewrite.
 const included = [
   { title: "Showcase Photography", body: "Up to 40 images with HDR detail, window views, blue skies and green grass." },
-  { title: "Free floor plan", body: "A basic floor plan with dimensions, free with every photo shoot and 3D tour." },
+  { title: "Video", body: "Walkthrough and aerial films edited to music, with an agent guided tour if you want one." },
   { title: "Drone and 3D tours", body: "Aerials from an FAA certified pilot, and Matterport or Zillow tours." },
-  { title: "Ready in 24 hours", body: "Your gallery in your client portal within 24 hours, 48 hours guaranteed." },
+  { title: "Free floor plan*", body: "A basic floor plan with dimensions with every Showcase Photography shoot, up to 3,000 sq ft scanned." },
 ];
 
 export default function Home() {
-  const selected = projects.slice(0, 3);
+  // A mixed taste of the portfolio: photos taken in turn from each collection.
+  const photoSets = projects.filter((p) => !p.videos.length).map((p) => p.images);
+  const selected = Array.from({ length: 6 }, (_, i) => photoSets[i % photoSets.length]?.[Math.floor(i / photoSets.length) + 1]).filter(Boolean);
   const lead = projects[0];
 
   return (
@@ -69,23 +73,17 @@ export default function Home() {
             <source src={hero.video.mp4} type="video/mp4" />
           </video>
         ) : null}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/10 to-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
+        {/* Pierre, Nov 23 2026: a clean landing. His video carries the logo and
+            its own darkening, so only a soft fade at the top (for the menu)
+            and the bottom (for the buttons). The words come as they scroll. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/45" />
         <div className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-end px-5 pb-14 md:px-10 md:pb-20">
-          <p className="label text-white/85">Real estate &amp; commercial photography · Madison, Wisconsin</p>
-          <h1 className="display mt-6 max-w-5xl text-[3rem] sm:text-6xl md:text-7xl lg:text-[6.25rem]">
-            Make your property stand out.
-            <br />
-            <span className="text-white/75">Ready in 24 hours.</span>
-          </h1>
-          <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <p className="max-w-md text-[17px] leading-relaxed text-white/85">{site.positioning}</p>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/book" className="btn border-white bg-white text-ink hover:border-accent hover:bg-accent hover:text-white">
-                Book a Shoot
-              </Link>
-              <Link href="/work" className="btn btn-light">View the Work</Link>
-            </div>
+          <h1 className="sr-only">{site.name}: real estate and commercial photography, drone, 3D tours and video in {site.market}</h1>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/book" className="btn border-white bg-white text-ink hover:border-accent hover:bg-accent hover:text-white">
+              Book a Shoot
+            </Link>
+            <Link href="/portfolio" className="btn btn-light">View the Portfolio</Link>
           </div>
         </div>
       </section>
@@ -112,11 +110,12 @@ export default function Home() {
           <Reveal className="md:col-span-9" delay={120}>
             <p className="display text-[2rem] leading-[1.15] md:text-[3.4rem] md:leading-[1.1]">
               Award-winning photography, drone, 3D tours and video for the agents, builders and businesses of {site.market}.{" "}
-              <span className="text-mute">A free floor plan comes with every shoot, and your gallery is ready {site.turnaround}.</span>
+              <span className="text-mute">A free floor plan* comes with every Showcase Photography shoot.</span>
             </p>
             <div className="mt-12 grid gap-8 border-t border-line pt-8 text-[15px] leading-relaxed text-ink-soft sm:grid-cols-2">
-              <p>With a 30 year track record of stunning visuals and personalized service, Pierre helps your property get the attention it deserves: residential, commercial, architectural, rentals, timelapse and business portraits.</p>
-              <p>Book online in about two minutes, or call or text Pierre. No waiting days: we respond extremely quickly and look forward to working with you.</p>
+              <p>With a 30 year track record of stunning visuals and personalized service, Showcase Media helps your property get the attention it deserves: residential, commercial, architectural, rentals, timelapse and business portraits.</p>
+              <p>Book online in about two minutes, or call or text us. No waiting days: we respond extremely quickly and look forward to working with you.</p>
+              <p className="text-sm text-mute sm:col-span-2">*Included up to 3,000 sq ft of total scanned space, garages, basements and unfinished areas included. Larger floor plans are $30 to $75.</p>
             </div>
           </Reveal>
         </div>
@@ -126,19 +125,21 @@ export default function Home() {
       <section className="mx-auto max-w-[1600px] px-5 pb-24 md:px-10 md:pb-36">
         <div className="mb-10 flex items-end justify-between gap-6 md:mb-14">
           <Reveal>
-            <p className="label text-mute">Selected work</p>
-            <h2 className="display mt-4 text-5xl md:text-6xl">Recent work</h2>
+            <p className="label text-mute">Portfolio</p>
+            <h2 className="display mt-4 text-5xl md:text-6xl">Portfolio</h2>
           </Reveal>
-          <Link href="/work" className="label link-underline hidden pb-1 sm:inline-block">All work</Link>
+          <Link href="/portfolio" className="label link-underline hidden pb-1 sm:inline-block">Full portfolio</Link>
         </div>
-        <div className="grid gap-x-4 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {selected.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 3) * 110}>
-              <ProjectTile project={p} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+          {selected.map((im, i) => (
+            <Reveal key={im.src} delay={(i % 3) * 110}>
+              <Link href="/portfolio" className="relative block aspect-[4/3] overflow-hidden bg-shell">
+                <Image src={im.src} alt={`${site.name} portfolio, photo ${i + 1}`} fill sizes="(min-width: 1024px) 33vw, 50vw" className="object-cover transition-transform duration-[1.6s] ease-out hover:scale-[1.04]" />
+              </Link>
             </Reveal>
           ))}
         </div>
-        <Link href="/work" className="btn btn-ghost mt-14 w-full sm:hidden">All work</Link>
+        <Link href="/portfolio" className="btn btn-ghost mt-14 w-full sm:hidden">Full portfolio</Link>
       </section>
 
       {/* 5. Services */}
@@ -195,12 +196,12 @@ export default function Home() {
                 <h2 className="display mt-4 text-5xl md:text-6xl">{lead.name}</h2>
                 <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-white/70">{lead.headline}</p>
                 <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-white/55">{lead.images.length} photos, with Showcase editing on every image.</p>
-                <Link href={`/work/${lead.slug}`} className="btn btn-light mt-10">See the full shoot</Link>
+                <Link href="/portfolio" className="btn btn-light mt-10">See the portfolio</Link>
               </Reveal>
               <Reveal className="lg:col-span-8" delay={140}>
                 <div className="grid grid-cols-2 gap-3">
                   {[lead.images[1], lead.images[10], lead.images[13]].filter(Boolean).map((im, i) => (
-                    <Link key={im.src} href={`/work/${lead.slug}`} className={`relative block overflow-hidden ${i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"}`}>
+                    <Link key={im.src} href="/portfolio" className={`relative block overflow-hidden ${i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"}`}>
                       <Image src={im.src} alt={`${lead.name}, photo ${i + 2}`} fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover transition-transform duration-[1.6s] ease-out hover:scale-[1.03]" />
                     </Link>
                   ))}
@@ -214,26 +215,26 @@ export default function Home() {
       {/* 7. About teaser */}
       <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-36">
         <div className="grid gap-12 md:grid-cols-12 md:items-center">
-          <Reveal className="md:col-span-5">
-            <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+          <Reveal className="md:col-span-3">
+            <div className="relative mx-auto aspect-[4/5] max-w-[280px] overflow-hidden bg-sand md:max-w-none">
               <Image
                 src="/images/site/pierre.jpg"
-                alt="Pierre Stephenson, M.Photog., Cr., the photographer behind Showcase Media"
+                alt="Pierre Stephenson, M.Photog., Cr., founder of Showcase Media"
                 fill
-                sizes="(min-width: 768px) 40vw, 100vw"
+                sizes="(min-width: 768px) 25vw, 280px"
                 className="object-cover"
               />
             </div>
           </Reveal>
-          <Reveal className="md:col-span-6 md:col-start-7" delay={140}>
-            <p className="label text-mute">Meet Pierre</p>
-            <h2 className="display mt-4 text-5xl md:text-6xl">Thirty years behind the camera.</h2>
+          <Reveal className="md:col-span-7 md:col-start-5" delay={140}>
+            <p className="label text-mute">About Showcase Media</p>
+            <h2 className="display mt-4 text-5xl md:text-6xl">Thirty years of experience in every shoot.</h2>
             <p className="mt-8 text-[17px] leading-relaxed text-ink-soft">
-              Pierre Stephenson is an award-winning PPA Master Photographer with 30 years of experience in
-              commercial, real estate and portrait photography. He teaches at Madison College and at seminars
-              and workshops across North America, and his work has helped close on thousands of properties.
+              Showcase Media was founded by Pierre Stephenson, an award-winning PPA Master Photographer with
+              30 years in commercial, real estate and portrait photography. Our photographers bring the same
+              standard to every property, and our work has helped close on thousands of them.
             </p>
-            <Link href="/about" className="label link-underline mt-10 inline-block pb-1">More about Pierre</Link>
+            <Link href="/about" className="label link-underline mt-10 inline-block pb-1">About us</Link>
           </Reveal>
         </div>
       </section>
@@ -273,7 +274,7 @@ export default function Home() {
       ) : null}
 
       {/* 10. How it works */}
-      <HowItWorks title="Simple to book, ready in 24 hours." />
+      <HowItWorks title="Simple to book." />
 
       {/* 11. Book */}
       <CtaBand />

@@ -10,7 +10,7 @@ import { Logo } from "./Logo";
 export function Nav() {
   const pathname = usePathname();
   // Pages that open on a full-bleed photo get the transparent nav.
-  const overHero = pathname === "/" || /^\/work\/[^/]+$/.test(pathname);
+  const overHero = pathname === "/" || /^\/portfolio\/[^/]+$/.test(pathname);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 

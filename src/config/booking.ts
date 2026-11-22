@@ -18,7 +18,7 @@ export const BOOKING = {
   confirmWithin: CONFIRM_WITHIN,
   turnaround: TURNAROUND,
 
-  // How clients reach Pierre from the form (from src/config/site.ts).
+  // How clients reach the business from the form (from src/config/site.ts).
   contact: {
     phoneDisplay: site.phoneDisplay,
     phoneHref: site.call,
@@ -55,31 +55,35 @@ export const BOOKING = {
     { id: "extras", title: "Add to your order" },
   ] as { id: ItemGroup; title: string }[],
 
-  areaLine: "Based in east Madison, serving Greater Madison, Dane County, Wisconsin and Northern Illinois.",
+  areaLine: "Based on the east side of Madison, near Sun Prairie, serving Greater Madison, Dane County, Wisconsin and Northern Illinois. No travel fee within 25 miles of our location.",
 
-  outsideAreaNote: "No travel fee within 25 miles of Madison and Sun Prairie. Farther, travel is $0.50 a mile round trip, and Pierre confirms it with you before the shoot.",
+  outsideAreaNote: "No travel fee within 25 miles of our location on the east side of Madison, near Sun Prairie. Farther, travel is $0.50 a mile round trip, and we confirm it with you before the shoot.",
 
-  includedNote: "Pick the size of the home, then a package. A free basic floor plan comes with every Showcase Photography shoot and every 3D tour.",
+  includedNote: "Pick the finished size of the property, then a package. A free basic floor plan* comes with every Showcase Photography shoot and every 3D tour.",
+
+  // Pierre, Nov 23 2026: say it plainly wherever the free floor plan appears.
+  floorPlanNote: "*The free floor plan is included up to 3,000 sq ft of total scanned space. That counts garages, basements and unfinished areas, not just the finished square footage, so a home listed at 2,000 sq ft can scan larger. For a larger property, add the larger floor plan in the add-ons ($30 to $75), or we confirm it with you after the scan.",
 
   packageNote: "Or skip the package and book twilight photography on its own in the next step.",
 
-  twilightNote: "Twilight photography is taken near dusk. Pierre will confirm the evening with you.",
+  twilightNote: "Twilight photography is taken near dusk. We confirm the evening with you. Virtual twilight, just below, gives a similar look from a daytime photo.",
 
-  quotedAddOnsNote: "Floor plans over 3,000 scanned sq ft have a small large-property fee, added for you.",
+  quotedAddOnsNote: "The free floor plan covers up to 3,000 sq ft of total scanned space. If your property is larger, add the larger floor plan below.",
 
-  quotedClientNote: "Commercial and architectural work is quoted to the project. Pick the closest size and Pierre will send a quote.",
+  quotedClientNote: "Commercial and architectural work is quoted to the project. Pick the closest size and we send a quote.",
 
-  hours: "Pierre shoots Monday to Friday, starting from 9:30 AM to 4 PM, and confirms every time with you. Weekends and earlier or later times are by request: add them in the notes.",
+  hours: "We shoot Monday to Friday, starting from 9:30 AM to 4 PM, and confirm every time with you. Weekends and earlier or later times are by request: add them in the notes.",
 
-  payment: "Your gallery arrives in your client portal. Pierre sends your invoice, and your downloads unlock as soon as it's paid.",
+  payment: "Your gallery link arrives by email and in your client portal, along with your invoice.",
 
   terms: [
-    "Cancelling or rescheduling with less than 24 hours notice costs 50% of the order, plus any travel fees if Pierre is already on the way.",
+    "Cancelling or rescheduling with less than 24 hours notice costs 50% of the order, plus any travel fees if we are already on the way.",
     "Drone flights depend on FAA rules, local rules, safety and the weather, and may not be available everywhere.",
     "3D virtual tours are hosted for up to 1 year.",
-    "Free floor plans are based on the actual scanned space, not the finished square footage.",
-    "The listing agent handles MLS rules.",
-    `Photos are delivered ${TURNAROUND}. Walkthrough videos take 48 hours.`,
-    "Prices are in USD.",
+    "A free floor plan comes with every Showcase Photography shoot, included up to 3,000 sq ft scanned. Floor plans are based on the actual total scanned square footage, not the finished space.",
+    "Larger floor plans: 3,001 to 5,000 sq ft $30, 5,001 to 7,500 sq ft $50, 7,501 to 10,000 sq ft $75.",
+    "The listing agent and brokerage are responsible for posting to MLS and handling MLS rules.",
+    "Photos are delivered within 24 hours, 48 hours guaranteed. All videos take 48 to 72 hours.",
+    "Prices are in USD and subject to applicable sales tax.",
   ],
 };

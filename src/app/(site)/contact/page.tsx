@@ -6,7 +6,7 @@ import { site } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Call, text or email ${site.name}. Tell Pierre about your property or project and he'll confirm your date ${site.confirmWithin}.`,
+  description: `Call, text or email ${site.name}. Tell us about your property or project and we'll confirm your date ${site.confirmWithin}.`,
 };
 
 export default function ContactPage() {
@@ -25,7 +25,7 @@ export default function ContactPage() {
           <p className="label text-mute">Contact</p>
           <h1 className="display mt-5 text-6xl md:text-7xl">Say hello</h1>
           <p className="mt-8 max-w-md text-[17px] leading-relaxed text-ink-soft">
-            Tell Pierre about your property or project and he&apos;ll confirm your date {site.confirmWithin}. {site.travel} Ready to book? The{" "}
+            Tell us about your property or project and we&apos;ll confirm your date {site.confirmWithin}. {site.travel} Ready to book? The{" "}
             <Link href="/book" className="underline underline-offset-2">booking form</Link> shows your estimate as you go.
           </p>
           <dl className="mt-12 divide-y divide-line border-y border-line">

@@ -50,6 +50,9 @@ type Data = {
   date: string;
   window: TimeWindow | "";
   access: string;
+  occupancy: "" | "Vacant" | "Occupied";
+  acreage: string;
+  platLink: string;
   notes: string;
   agree: boolean;
 };
@@ -68,6 +71,9 @@ const EMPTY: Data = {
   date: "",
   window: "",
   access: "",
+  occupancy: "",
+  acreage: "",
+  platLink: "",
   notes: "",
   agree: false,
 };
@@ -78,7 +84,7 @@ const STEPS = BOOKING.steps;
 const ITEM = new Map(ITEMS.map((i) => [i.id, i]));
 const noopSubscribe = () => () => {};
 const longDate = (ymd: string) => (ymd ? new Intl.DateTimeFormat("en-US", { timeZone: "UTC", weekday: "long", month: "long", day: "numeric" }).format(new Date(`${ymd}T12:00:00Z`)) : "");
-const CALL_OR_TEXT = `call or text Pierre at ${BOOKING.contact.phoneDisplay}`;
+const CALL_OR_TEXT = `call or text us at ${BOOKING.contact.phoneDisplay}`;
 
 function newId(): string {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
@@ -168,17 +174,21 @@ export function BookingForm() {
       if (!d.clientType) return "Please tell us who's booking.";
       if (d.name.trim().length < 2) return "Please add your name.";
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email.trim())) return "Please add a valid email address.";
-      if (d.phone.replace(/\D/g, "").length < 7) return "Please add a mobile number so Pierre can reach you on the day.";
+      if (d.phone.replace(/\D/g, "").length < 7) return "Please add a mobile number so we can reach you on the day.";
+      if (d.clientType === "agent" && d.company.trim().length < 2) return "Please add your brokerage.";
     }
     if (step === 1) {
       if (d.address.trim().length < 5) return "Please add the property address.";
       if (!d.area) return "Please choose the area.";
     }
-    if (step === 2 && !d.pkg) return "Please pick the size of the home.";
+    if (step === 2 && !d.pkg) return "Please pick the size of the property.";
+    if (step === 2 && d.platLink.trim() && !/^https?:\/\/\S+\.\S+/.test(d.platLink.trim())) return "The plat map link should be a full web address, starting with https://";
     if (step === 3 && !hasOrder) return "Please pick a package in the last step, or a service booked on its own here.";
     if (step === 4) {
       if (!d.date) return "Please pick a date.";
       if (!d.window) return "Please pick a time of day.";
+      if (d.access.trim().length < 2) return "Please tell us how we get in.";
+      if (!d.occupancy) return "Please tell us if the property is vacant or occupied.";
     }
     if (step === 5 && !d.agree) return "Please tick the box to agree to the terms.";
     return "";
@@ -191,14 +201,16 @@ export function BookingForm() {
       client: { name: d.name.trim(), email: d.email.trim(), phone: d.phone.trim(), company: d.company.trim() || null },
       client_type: d.clientType,
       brokerage: brokerage || null,
-      property: { address: d.address.trim(), access: d.access.trim() || null },
+      // Access, occupancy, acreage and the plat map travel in the studio's
+      // existing access and notes fields (Nov 23 2026), one labelled line each.
+      property: { address: d.address.trim(), access: [d.access.trim() && `Access: ${d.access.trim()}`, d.occupancy && `Vacant or occupied: ${d.occupancy}`].filter(Boolean).join("\n") || null },
       area: d.area,
       time_window: d.window,
       desired_date: d.date,
       launch_date: d.launchDate || null,
       package: d.pkg || null,
       items: priced.items.map((i) => ({ id: i.id, qty: i.qty, option: i.option })),
-      notes: d.notes.trim() || null,
+      notes: [d.notes.trim(), d.acreage.trim() && `Acreage notes: ${d.acreage.trim()}`, d.platLink.trim() && `Plat or lot map: ${d.platLink.trim()}`].filter(Boolean).join("\n\n") || null,
       agreed_to_terms: true,
       total_cents: priced.totalCents,
       pricing_hash: priced.hash,
@@ -278,15 +290,15 @@ export function BookingForm() {
 
   if (done) {
     const steps = [
-      `Pierre confirms your date and time by text or email within ${BOOKING.confirmWithin}.`,
-      "On the day, he shoots in the time you agree.",
+      `We confirm your date and time by text or email within ${BOOKING.confirmWithin}.`,
+      "On the day, we shoot in the time you agree.",
       `Your photos arrive ${BOOKING.turnaround}, in your own online gallery.`,
       BOOKING.payment,
     ];
     return (
       <div ref={top} className="mx-auto max-w-3xl scroll-mt-28 py-6 md:py-10">
         <p className="label text-accent">Request received</p>
-        <h2 className="display mt-5 text-5xl md:text-7xl">Request received. Pierre will confirm within {BOOKING.confirmWithin}.</h2>
+        <h2 className="display mt-5 text-5xl md:text-7xl">Request received. We confirm within {BOOKING.confirmWithin}.</h2>
         <p className="mt-8 text-[17px] leading-relaxed text-ink-soft">
           Thanks, {d.name.trim().split(" ")[0]}. We have your request for {where || "your property"} on {longDate(d.date)}, {windowLabel || "time to be set"}.{done.emailed ? ` A copy is on its way to ${d.email.trim()}.` : ""}
         </p>
@@ -302,12 +314,12 @@ export function BookingForm() {
           </ol>
           <p className="mt-8 text-sm text-mute">
             Your estimate: {done.total}
-            {done.needsQuote ? " so far. Pierre will confirm the rest with you." : "."} Nothing is charged today.
+            {done.needsQuote ? " so far. We confirm the rest with you." : "."} Nothing is charged today.
           </p>
         </div>
         <div className="mt-10 flex flex-wrap gap-3">
-          <a href={BOOKING.contact.smsHref} className="btn btn-solid">Text Pierre</a>
-          <Link href="/work" className="btn btn-ghost">Browse the work</Link>
+          <a href={BOOKING.contact.smsHref} className="btn btn-solid">Text us</a>
+          <Link href="/portfolio" className="btn btn-ghost">Browse the portfolio</Link>
         </div>
         {done.test ? (
           <div className="mt-14 border border-accent/50 bg-white/60 p-6">
@@ -338,7 +350,7 @@ export function BookingForm() {
             {step === 0 && (
               <>
                 <h2 className="display text-4xl md:text-6xl">Who&apos;s booking?</h2>
-                <p className="mt-5 text-[17px] text-ink-soft">This takes about two minutes. Pierre confirms within {BOOKING.confirmWithin}.</p>
+                <p className="mt-5 text-[17px] text-ink-soft">This takes about two minutes. We confirm within {BOOKING.confirmWithin}.</p>
                 <fieldset className="mt-8">
                   <legend className="sr-only">You are</legend>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -364,12 +376,12 @@ export function BookingForm() {
                   </div>
                   <div>
                     <Label htmlFor="phone">Mobile number</Label>
-                    <input id="phone" type="tel" className="field" autoComplete="tel" placeholder="(208) 555 0123" value={d.phone} onChange={(e) => set("phone", e.target.value)} />
+                    <input id="phone" type="tel" className="field" autoComplete="tel" placeholder="(608) 555 0123" value={d.phone} onChange={(e) => set("phone", e.target.value)} />
                   </div>
                 </div>
                 {d.clientType && d.clientType !== "homeowner" ? (
                   <>
-                    <Label htmlFor="company" optional>{isAgent ? "Brokerage" : "Company"}</Label>
+                    <Label htmlFor="company" optional={!isAgent}>{isAgent ? "Brokerage" : "Company"}</Label>
                     <input id="company" className="field" autoComplete="organization" value={d.company} onChange={(e) => set("company", e.target.value)} />
                   </>
                 ) : null}
@@ -400,13 +412,14 @@ export function BookingForm() {
 
             {step === 2 && (
               <>
-                <h2 className="display text-4xl md:text-6xl">How big is the home?</h2>
+                <h2 className="display text-4xl md:text-6xl">How big is the property?</h2>
                 <p className="mt-5 text-[17px] text-ink-soft">
-                  {BOOKING.includedNote} Not sure of the square footage? Pick your best guess and Pierre will check it.
+                  {BOOKING.includedNote} Not sure of the square footage? Pick your best guess and we&apos;ll check it.
                 </p>
+                <p className="mt-4 border-l border-accent pl-4 text-sm leading-relaxed text-ink-soft">{BOOKING.floorPlanNote}</p>
                 {quotedClient ? <p className="mt-5 border-l border-accent pl-4 text-sm leading-relaxed text-ink-soft">{BOOKING.quotedClientNote}</p> : null}
                 <fieldset className="mt-8">
-                  <legend className="sr-only">Size of the home</legend>
+                  <legend className="sr-only">Finished size of the property</legend>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {PACKAGES.map((p) => {
                       const on = d.pkg === p.id;
@@ -438,6 +451,10 @@ export function BookingForm() {
                     </ul>
                   </div>
                 ) : null}
+                <Label htmlFor="acreage" optional>Acreage notes</Label>
+                <textarea id="acreage" rows={2} className="field resize-none" placeholder="The lot size and anything about the land, for example 15 acres with a pond and a barn" value={d.acreage} onChange={(e) => set("acreage", e.target.value)} />
+                <Label htmlFor="platLink" optional>Plat or lot map link</Label>
+                <input id="platLink" type="url" inputMode="url" className="field" placeholder="https:// a link to the plat map, so we know the boundaries for drone work" value={d.platLink} onChange={(e) => set("platLink", e.target.value)} />
                 {d.pkg ? (
                   <>
                     <h3 className="display mt-14 text-3xl md:text-4xl">Pick a package</h3>
@@ -526,7 +543,7 @@ export function BookingForm() {
                                 </div>
                               </fieldset>
                             ) : null}
-                            {picked && it.id === "dusk" ? <p className="mt-3 pl-8 text-sm text-mute">{BOOKING.twilightNote}</p> : null}
+                            {picked && it.id === "twilight" ? <p className="mt-3 pl-8 text-sm text-mute">{BOOKING.twilightNote}</p> : null}
                           </div>
                         );
                       })}
@@ -557,18 +574,33 @@ export function BookingForm() {
                     })}
                   </div>
                 </fieldset>
-                {d.items.dusk ? <p className="mt-4 text-sm text-mute">{BOOKING.twilightNote}</p> : null}
-                <Label htmlFor="access">Access notes</Label>
-                <textarea id="access" rows={3} className="field resize-none" placeholder="Lockbox code, who will be there, pets, parking" value={d.access} onChange={(e) => set("access", e.target.value)} />
-                <Label htmlFor="notes" optional>Anything else?</Label>
-                <textarea id="notes" rows={3} className="field resize-none" placeholder="Rooms or views to feature, things to avoid" value={d.notes} onChange={(e) => set("notes", e.target.value)} />
+                {d.items.twilight ? <p className="mt-4 text-sm text-mute">{BOOKING.twilightNote}</p> : null}
+                <Label htmlFor="access">How do we get in?</Label>
+                <textarea id="access" rows={2} className="field resize-none" placeholder="Supra with CBS code, lockbox with code, agent, seller, etc." value={d.access} onChange={(e) => set("access", e.target.value)} />
+                <fieldset className="mt-8">
+                  <legend className="label text-mute">Vacant or occupied?</legend>
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    {(["Vacant", "Occupied"] as const).map((o) => {
+                      const on = d.occupancy === o;
+                      return (
+                        <label key={o} className={`${CARD} ${cardTone(on)}`}>
+                          <input type="radio" name="occupancy" value={o} checked={on} onChange={() => set("occupancy", o)} className="sr-only" />
+                          <span className="text-[16px]">{o}</span>
+                          <Dot on={on} />
+                        </label>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+                <Label htmlFor="notes" optional>Notes and special requests</Label>
+                <textarea id="notes" rows={3} className="field resize-none" placeholder="Things to feature, parking, pets, etc." value={d.notes} onChange={(e) => set("notes", e.target.value)} />
               </>
             )}
 
             {step === 5 && (
               <>
                 <h2 className="display text-4xl md:text-6xl">Check and send.</h2>
-                <p className="mt-5 text-[17px] text-ink-soft">Nothing is charged today. Pierre confirms within {BOOKING.confirmWithin}.</p>
+                <p className="mt-5 text-[17px] text-ink-soft">Nothing is charged today. We confirm within {BOOKING.confirmWithin}.</p>
                 <dl className="mt-8 divide-y divide-line border-y border-line text-[15px]">
                   {(
                     [
@@ -579,11 +611,14 @@ export function BookingForm() {
                       [isAgent ? "Brokerage" : "Company", d.company.trim()],
                       ["Property", where],
                       ["Area", d.area],
-                      ["Home size", PACKAGES.find((p) => p.id === d.pkg)?.name ?? ""],
+                      ["Property size", PACKAGES.find((p) => p.id === d.pkg)?.name ?? ""],
+                      ["Acreage notes", d.acreage.trim()],
+                      ["Plat or lot map", d.platLink.trim()],
                       ["Package", service?.name ?? ""],
                       ["When", d.date ? `${longDate(d.date)}, ${windowLabel}` : ""],
                       ["Listing goes live", longDate(d.launchDate)],
                       ["Access", d.access.trim()],
+                      ["Vacant or occupied", d.occupancy],
                       ["Notes", d.notes.trim()],
                     ] as [string, string][]
                   )
@@ -628,9 +663,9 @@ export function BookingForm() {
           <div className="border border-line bg-white/50 p-6 md:p-7 lg:sticky lg:top-28">
             <p className="label text-mute">Your estimate</p>
             <p className={`mt-4 text-[15px] ${where ? "" : "text-mute"}`}>{where || "Your property"}</p>
-            {outside ? <p className="mt-1 text-sm text-mute">More than 25 miles from Madison or Sun Prairie: travel $0.50 a mile round trip, to be confirmed.</p> : null}
+            {outside ? <p className="mt-1 text-sm text-mute">More than 25 miles from our studio: travel $0.50 a mile round trip, to be confirmed.</p> : null}
             <ul className="mt-6 space-y-3 border-t border-line pt-5 text-sm">
-              {!hasLines ? <li className="text-mute">Pick the size of the home and a package to see the price.</li> : null}
+              {!hasLines ? <li className="text-mute">Pick the size of the property and a package to see the price.</li> : null}
               {lines.map((l) => {
                 const detail = lineDetail(l);
                 return (

@@ -13,7 +13,7 @@ export function ProjectTile({
 }) {
   const cover = coverOf(project);
   return (
-    <Link href={`/work/${project.slug}`} className="group block">
+    <Link href={`/portfolio/${project.slug}`} className="group block">
       <div className={`relative overflow-hidden bg-sand ${aspect}`}>
         <Image
           src={cover.src}

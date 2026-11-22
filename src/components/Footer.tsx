@@ -47,7 +47,7 @@ export function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
-          <p>© <Year /> {site.legalName}. All images are the work of {site.owner}.</p>
+          <p>© <Year /> Created by {site.name}. All Rights Reserved.</p>
           <p className="label text-[10px] text-white/35">{site.tagline}</p>
         </div>
       </div>

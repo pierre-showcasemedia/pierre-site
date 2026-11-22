@@ -13,7 +13,7 @@ export const site = {
   positioning:
     "Award-winning real estate and commercial photography, drone aerials, 3D virtual tours and video across Greater Madison, Dane County and Northern Illinois.",
   description:
-    "Showcase Media is a Madison, Wisconsin real estate and commercial media company: Showcase Photography with a free floor plan, drone aerials, Matterport and Zillow 3D tours, walkthrough video, twilight, virtual staging and business portraits.",
+    "Showcase Media is a Madison, Wisconsin real estate and commercial media company: Showcase Photography with a free floor plan (up to 3,000 scanned sq ft), drone aerials, Matterport and Zillow 3D tours, walkthrough video, twilight, virtual staging and business portraits.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.showcasemedia.pro",
   // Client galleries live in the studio app, not on this site.
   portalUrl: process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://portal.showcasemedia.pro",
@@ -26,7 +26,7 @@ export const site = {
   city: "Madison",
   serviceArea: "Greater Madison, Dane County, Wisconsin and Northern Illinois",
   address: "3315 Ambassador Dr, Madison, WI 53718",
-  travel: "No travel fee within 25 miles of Madison and Sun Prairie. Farther, travel is $0.50 a mile round trip.",
+  travel: "No travel fee within 25 miles of our location on the east side of Madison, near Sun Prairie. Farther, travel is $0.50 a mile round trip.",
   email: "mediahero@showcasemedia.pro",
   phoneDisplay: "(608) 345-2123",
   phoneE164: "+16083452123",
@@ -40,7 +40,7 @@ export const site = {
   youtube: { handle: "@showcasemediapro", url: "https://www.youtube.com/@showcasemediapro" },
   turnaround: "within 24 hours",
   confirmWithin: "the same day",
-  hours: "Shoots Monday to Friday, starting from 9:30 AM to 4 PM. Pierre confirms every time; weekends and earlier or later times by request",
+  hours: "Shoots Monday to Friday, starting from 9:30 AM to 4 PM. We confirm every time; weekends and earlier or later times by request",
   bookingLead: "We respond extremely quickly.",
   // How clients pay. Pierre invoices; the gallery unlocks once the invoice is paid.
   payment: {
@@ -94,7 +94,7 @@ export const heroFilm: HeroFilm = {
 };
 
 export const nav = [
-  { href: "/work", label: "Work" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -162,10 +162,10 @@ export const services: Service[] = [
     slug: "photography",
     name: "Showcase Photography",
     short: "Photography",
-    body: "Up to 40 images with Showcase editing: HDR detail, blue sky replacement as needed, window views, fire in the fireplaces and green grass. A free floor plan comes with every shoot.",
+    body: "Up to 40 images with Showcase editing: HDR detail, blue sky replacement as needed, window views, fire in the fireplaces and green grass. A free floor plan* comes with every shoot, up to 3,000 sq ft of total scanned space.",
     image: "/images/site/service-photography.jpg",
     clip: null,
-    href: "/work/interiors",
+    href: "/services#photography",
   },
   {
     slug: "aerial",
@@ -174,15 +174,16 @@ export const services: Service[] = [
     body: "Drone photos and cinematic aerial video that show the property and the area around it. FAA certified drone pilot.",
     image: "/images/site/service-aerial.jpg",
     clip: null,
-    href: "/work/exteriors",
+    href: "/services#aerial",
   },
   {
     slug: "tours",
     name: "3D Virtual Tours & Floor Plans",
     short: "3D & Floor Plans",
-    body: "Matterport and Zillow 3D virtual tours, hosted for up to a year, with a free basic floor plan. Schematic, 3D and CAD floor plans on request.",
+    body: "Matterport and Zillow 3D virtual tours, hosted for up to a year, with a free basic floor plan* up to 3,000 sq ft scanned. Larger, schematic, 3D and CAD floor plans on request.",
     image: "/images/site/service-tours.jpg",
     clip: null,
+    href: "/services#tours",
   },
   {
     slug: "video",
@@ -191,7 +192,7 @@ export const services: Service[] = [
     body: "Walkthrough videos edited to music with aerial intro and closing clips, an agent guided tour option, and advanced imaging effects.",
     image: "/images/site/service-video.jpg",
     clip: null,
-    href: "/work/video",
+    href: "/portfolio/video",
   },
   {
     slug: "twilight",
@@ -200,7 +201,7 @@ export const services: Service[] = [
     body: "Real twilight photography near dusk, or virtual twilight from your daytime exteriors.",
     image: "/images/site/service-twilight.jpg",
     clip: null,
-    href: "/work/twilight",
+    href: "/services#twilight",
   },
   {
     slug: "staging",
@@ -209,6 +210,7 @@ export const services: Service[] = [
     body: "Empty rooms furnished in the photo, with many decor styles to choose from.",
     image: "/images/site/service-staging.jpg",
     clip: null,
+    href: "/services#staging",
   },
   {
     slug: "portraits",
@@ -217,25 +219,26 @@ export const services: Service[] = [
     body: "Environmental business portraits and group portraits, photographed at your business.",
     image: "/images/site/service-portraits.jpg",
     clip: null,
+    href: "/services#portraits",
   },
 ];
 
 // The quiet line under the services list.
 export const serviceExtras = {
-  editing: "Every image gets Showcase editing and is ready within 24 hours, 48 hours guaranteed.",
-  video: "A free basic floor plan comes with every Showcase Photography shoot and every 3D tour.",
+  editing: "Every image gets Showcase editing. Photos are ready within 24 hours, 48 hours guaranteed; videos in 48 to 72 hours.",
+  video: "*A free basic floor plan comes with every Showcase Photography shoot and every 3D tour, up to 3,000 sq ft of total scanned space (garages, basements and unfinished areas count). Larger floor plans are $30 to $75.",
 };
 
 export const howItWorks = [
   {
     step: "01",
     title: "Book",
-    body: "Book online in about two minutes, or call or text Pierre.",
+    body: "Book online in about two minutes, or call or text us.",
   },
   {
     step: "02",
     title: "Confirm",
-    body: "No waiting days. Pierre confirms your date and time quickly.",
+    body: "No waiting days. We confirm your date and time quickly.",
   },
   {
     step: "03",

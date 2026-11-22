@@ -159,7 +159,7 @@ export async function POST(req: Request) {
 
   if (!studioOk && !formspreeOk) {
     console.error("[booking] not accepted", { submissionId, studioError, formspree: Boolean(formspree) });
-    return Response.json({ ok: false, error: `We couldn't send your request just now. Please try again in a minute, or call or text Pierre at ${site.phoneDisplay}.` }, { status: 502 });
+    return Response.json({ ok: false, error: `We couldn't send your request just now. Please try again in a minute, or call or text us at ${site.phoneDisplay}.` }, { status: 502 });
   }
   if (!studioOk && studio) console.error("[booking] studio missed it, Formspree has it", { submissionId, studioError });
   return Response.json({

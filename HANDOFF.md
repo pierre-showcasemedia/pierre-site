@@ -63,9 +63,11 @@ the website, and a copy lands in Formspree.
   from his current site (the PDF doesn't list them). Only large group
   portraits (10+) and timelapse are quoted, as on his sheet. Tours and tour
   bundles over 7,500 sq ft are quoted, and properties over 10,000 sq ft are
-  quoted. The free floor plan's large-property fee ($30, $50, $75) is added
-  for homes over 3,000 sq ft.
-- **Travel:** free within 25 miles of Madison and Sun Prairie, then $0.50 a
+  quoted. The free floor plan covers up to 3,000 sq ft of total scanned
+  space; the larger floor plan ($30, $50, $75 by scanned size) is an optional
+  add-on (Nov 23), never charged from the finished size.
+- **Travel:** free within 25 miles of his location on the east side of
+  Madison, near Sun Prairie, then $0.50 a
   mile round trip. The form can't measure miles, so Pierre confirms the fee.
 - **Cancellation:** under 24 hours notice, 50% plus any travel fees if he is
   already on the way (in the booking terms).
@@ -73,8 +75,10 @@ the website, and a copy lands in Formspree.
   and are NOT in this repo: anything in `src/lib/pricing.ts` ships in the
   website's code. They live in the studio (`src/lib/agent-rates.ts` and its
   `HANDOFF.md`).
-- **Copy:** his About page (bio in his own words), his Testimonials (six
-  quotes, word for word), his contact details.
+- **Copy:** About is about the business, with Pierre as founder (Nov 23: other
+  photographers shoot for him too); his Testimonials (quotes, word for word);
+  his contact details. "Work" is "Portfolio" (one mixed gallery, `/work` links
+  redirect).
 - **Photos and logo:** from his current site (his own work), resized for the web.
 
 ## The homepage hero video (a slot, ready)

@@ -81,24 +81,32 @@ the website, and a copy lands in Formspree.
   redirect).
 - **Photos and logo:** from his current site (his own work), resized for the web.
 
-## The homepage hero video (a slot, ready)
+## The homepage hero video
 
-Pierre sent five versions on Nov 20 (the original and Dark30, 40, 50, 60:
-different darkening). The homepage already lays a dark gradient over the
-hero (45% to 70% black), so the original or Dark30 is likely right. With the
-chosen file on this machine:
+Pierre chose the Dark30 version (Nov 20 files). On Nov 23 he found the first
+encode too soft, the logo in the middle most of all: it had been squeezed to
+1280 wide at about 1 Mbps to stay under 10 MB. It is now three files in
+`public/clips/`, made from his Dark30-V2 file:
+
+- `hero-1920-av1.mp4`: AV1, 1920 wide, for browsers that play AV1.
+- `hero-1920.mp4`: H.264, 1920 wide, for every other computer.
+- `hero-1280.mp4`: H.264, 1280 wide, for phones (up to 767 px wide).
+
+Compared with his original on the logo area at 3, 20 and 45 seconds (SSIM,
+1.0 = identical): H.264 0.92 to 0.97, AV1 0.82 to 0.93 (its logo is as sharp;
+it smooths the background a little), phone 0.90 to 0.96. The first encode
+scored 0.79 to 0.88. Sizes: AV1 33 MB, H.264 52 MB, phone 20 MB, for 67 s. To swap in a new clip:
 
 ```bash
-node scripts/add-hero-video.mjs "WebsiteHeroVideo-Dark30.mp4"
+node scripts/add-hero-video.mjs "WebsiteHeroVideo-Dark30-V2.mp4"
 ```
 
-It makes `public/clips/hero.mp4` (H.264, 1920 wide, no sound, under 10 MB)
-and a WebM when that is smaller, and fills in `hero.video` in
-`src/config/site.ts`. Check with `npm run dev`, then commit and push.
-`--remove` puts the still photo back.
-It plays muted and looped behind the headline, never with sound; visitors who
-ask for reduced motion see the still photo. He also has an animated logo
-(ShowcaseMediaAnimate01.mp4) that isn't used yet: an option for later.
+Check with `npm run dev`, then commit and push. `--remove` puts the still
+photo back. Don't lower the quality to save size; a shorter clip from Pierre
+is the way to make it lighter. If the logo ever needs to be sharper still, the
+option is a video without the logo, with his logo laid over it as a sharp
+image; that needs a no-logo version from him. He also has an animated logo
+(ShowcaseMediaAnimate01.mp4) that isn't used yet.
 
 ## Open items
 

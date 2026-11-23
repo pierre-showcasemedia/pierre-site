@@ -69,7 +69,10 @@ export default function Home() {
             poster={hero.src}
             aria-hidden="true"
           >
-            {hero.video.webm ? <source src={hero.video.webm} type="video/webm" /> : null}
+            {/* Phones take the lighter file; computers take AV1 where the
+                browser can play it, otherwise H.264. */}
+            {hero.video.mobile ? <source src={hero.video.mobile} type="video/mp4" media="(max-width: 767px)" /> : null}
+            {hero.video.av1 ? <source src={hero.video.av1} type='video/mp4; codecs="av01.0.08M.08"' /> : null}
             <source src={hero.video.mp4} type="video/mp4" />
           </video>
         ) : null}

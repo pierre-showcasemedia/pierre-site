@@ -55,17 +55,18 @@ export const site = {
   mark: { width: 880, height: 762 },
 };
 
-// The homepage hero: a home at twilight. Pierre is making a hero video
-// (Nov 2026): when it's ready, put the files in public/clips/ and fill in
-// video below (an MP4, ideally under 10 MB, plus an optional WebM). It plays
-// muted, looped, behind the headline, never with sound, and the still shows
-// instead for visitors who ask for reduced motion. Empty = the still only.
+// The homepage hero: Pierre's video, with a home at twilight as the still that
+// shows while it loads and for visitors who ask for reduced motion. Three
+// files, made by scripts/add-hero-video.mjs (Nov 23 2026, sharper encode so
+// the logo in the middle stays crisp): AV1 for browsers that play it, H.264
+// for every other computer, and a lighter 1280-wide file for phones. It plays
+// muted and looped behind the buttons, never with sound. Empty = the still only.
 export const hero = {
   src: "/images/site/hero.jpg",
   width: 2400,
   height: 1600,
   alt: "A home at twilight with every light on, photographed by Showcase Media",
-  video: { mp4: "/clips/hero.mp4", webm: "" },
+  video: { av1: "/clips/hero-1920-av1.mp4", mp4: "/clips/hero-1920.mp4", mobile: "/clips/hero-1280.mp4" },
 };
 
 // Kept from the shared template (components/ScrollHero.tsx). Pierre's homepage uses the still hero above.

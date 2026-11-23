@@ -45,13 +45,13 @@ export default function ServicesPage() {
                     <p className="mt-5 max-w-md text-[17px] leading-relaxed text-ink-soft">{s.body}</p>
                     <div className="mt-8 flex flex-wrap gap-6">
                       <Link href="/book" className="label link-underline pb-1">Book this</Link>
-                      {s.href ? (
-                        <Link href={s.href} className="label link-underline pb-1 text-mute">See examples</Link>
+                      {s.examples ? (
+                        <Link href={s.examples} className="label link-underline pb-1 text-mute">See examples</Link>
                       ) : null}
                     </div>
                   </div>
-                  {s.href ? (
-                    <Link href={s.href} className="group relative block aspect-[16/10] overflow-hidden bg-sand md:col-span-6" tabIndex={-1} aria-hidden="true">
+                  {s.examples ? (
+                    <Link href={s.examples} className="group relative block aspect-[16/10] overflow-hidden bg-sand md:col-span-6" tabIndex={-1} aria-hidden="true">
                       {media}
                     </Link>
                   ) : (

@@ -108,7 +108,7 @@ export default function Home() {
             <p className="label text-mute">Showcase Media</p>
           </Reveal>
           <Reveal className="md:col-span-9" delay={120}>
-            <p className="display text-[2rem] leading-[1.15] md:text-[3.4rem] md:leading-[1.1]">
+            <p className="display text-[1.7rem] leading-[1.2] md:text-[2.5rem] md:leading-[1.15]">
               Award-winning photography, drone, 3D tours and video for the agents, builders and businesses of {site.market}.{" "}
               <span className="text-mute">A free floor plan* comes with every Showcase Photography shoot.</span>
             </p>

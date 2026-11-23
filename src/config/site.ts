@@ -153,7 +153,8 @@ export type Service = {
   body: string;
   image: string; // the poster: shown first, and the still when motion is off
   clip: ServiceClip | null;
-  href?: string; // where "See examples" goes; no link when there are no examples yet
+  href?: string; // where the home page card goes: the service's section on /services
+  examples?: string; // where "See examples" goes on /services; no link when there are no examples yet
   included?: boolean; // comes with every shoot
 };
 
@@ -165,7 +166,7 @@ export const services: Service[] = [
     body: "Up to 40 images with Showcase editing: HDR detail, blue sky replacement as needed, window views, fire in the fireplaces and green grass. A free floor plan* comes with every shoot, up to 3,000 sq ft of total scanned space.",
     image: "/images/site/service-photography.jpg",
     clip: null,
-    href: "/services#photography",
+    href: "/services#photography", examples: "/portfolio",
   },
   {
     slug: "aerial",
@@ -174,7 +175,7 @@ export const services: Service[] = [
     body: "Drone photos and cinematic aerial video that show the property and the area around it. FAA certified drone pilot.",
     image: "/images/site/service-aerial.jpg",
     clip: null,
-    href: "/services#aerial",
+    href: "/services#aerial", examples: "/portfolio",
   },
   {
     slug: "tours",
@@ -192,7 +193,7 @@ export const services: Service[] = [
     body: "Walkthrough videos edited to music with aerial intro and closing clips, an agent guided tour option, and advanced imaging effects.",
     image: "/images/site/service-video.jpg",
     clip: null,
-    href: "/portfolio/video",
+    href: "/services#video", examples: "/portfolio/video",
   },
   {
     slug: "twilight",
@@ -201,7 +202,7 @@ export const services: Service[] = [
     body: "Real twilight photography near dusk, or virtual twilight from your daytime exteriors.",
     image: "/images/site/service-twilight.jpg",
     clip: null,
-    href: "/services#twilight",
+    href: "/services#twilight", examples: "/portfolio",
   },
   {
     slug: "staging",

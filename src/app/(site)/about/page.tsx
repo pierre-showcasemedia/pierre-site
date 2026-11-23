@@ -39,7 +39,7 @@ export default function AboutPage() {
           </Reveal>
           <Reveal className="md:col-span-4 md:col-start-9 md:pt-24" delay={120}>
             <div className="relative aspect-[4/5] w-full max-w-[300px] overflow-hidden bg-sand">
-              <Image src="/images/site/pierre.jpg" alt="Pierre Stephenson, M.Photog., Cr., founder of Showcase Media" fill preload sizes="300px" className="object-cover" />
+              <Image src="/images/site/pierre-2026.jpg" alt="Pierre Stephenson, M.Photog., Cr., founder of Showcase Media" fill preload sizes="300px" className="object-cover object-top" />
             </div>
             <p className="label mt-6 text-mute">Founder</p>
             <p className="display mt-3 text-2xl">Pierre Stephenson</p>

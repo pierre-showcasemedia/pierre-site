@@ -218,11 +218,11 @@ export default function Home() {
           <Reveal className="md:col-span-3">
             <div className="relative mx-auto aspect-[4/5] max-w-[280px] overflow-hidden bg-sand md:max-w-none">
               <Image
-                src="/images/site/pierre.jpg"
+                src="/images/site/pierre-2026.jpg"
                 alt="Pierre Stephenson, M.Photog., Cr., founder of Showcase Media"
                 fill
                 sizes="(min-width: 768px) 25vw, 280px"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
           </Reveal>

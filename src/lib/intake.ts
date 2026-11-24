@@ -1,11 +1,13 @@
 // Shared plumbing for the website's server routes that hand something to
-// Pierre's studio (the pricing lead form, the plat map upload). The booking
-// route (src/app/api/booking/route.ts) has its own copy of the same rules.
+// Pierre's studio (bookings, the pricing lead form, the plat map upload),
+// including the test-run guard (src/lib/test-run.ts).
 //
 // Settings (names only; values live in Pierre's Vercel project):
 //   STUDIO_URL            the studio's address
 //   STUDIO_INTAKE_SECRET  the studio's BOOKING_INTAKE_SECRET
 //   NEXT_PUBLIC_FORMSPREE_ID (or FORMSPREE_ID)  the archive copy
+
+import { TEST_RUN, isLocalUrl } from "@/lib/test-run";
 
 const WINDOW_MS = 60_000;
 const hits = new Map<string, number[]>();
@@ -35,10 +37,12 @@ export function sameOrigin(req: Request): boolean {
 export function studioConfig(): { url: string; secret: string } | null {
   const url = (process.env.STUDIO_URL || "").trim().replace(/\/+$/, "");
   const secret = (process.env.STUDIO_INTAKE_SECRET || "").trim();
+  if (TEST_RUN && !isLocalUrl(url)) return null; // a test run only ever talks to a local studio
   return /^https?:\/\//.test(url) && secret ? { url, secret } : null;
 }
 
 export function formspreeId(): string | null {
+  if (TEST_RUN) return null; // a test run never reaches Pierre's Formspree
   const id = (process.env.NEXT_PUBLIC_FORMSPREE_ID || process.env.FORMSPREE_ID || "").trim();
   return id && id !== "YOUR_FORM_ID" && /^[A-Za-z0-9]+$/.test(id) ? id : null;
 }

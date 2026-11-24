@@ -1,4 +1,12 @@
 import type { NextConfig } from "next";
+import { testRunProblems } from "./src/lib/test-run";
+
+// A local test run (npm run test:server) refuses to build or serve while any
+// real Formspree id, non-local studio or Maps key is in the environment.
+const problems = testRunProblems(process.env);
+if (problems.length) {
+  throw new Error(`Test run refused: ${problems.join("; ")}. Remove these settings (check .env.local) and use npm run test:server.`);
+}
 
 const nextConfig: NextConfig = {
   /* config options here */

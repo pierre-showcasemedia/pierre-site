@@ -133,6 +133,17 @@ from Pierre's review call list:
   kept for the browser tab only (no cookies) and sent with a lead or booking.
 - Checks: `scripts/check-service-pages.ts`.
 
+### Testing on a laptop: `npm run test:server`
+
+Every local test of the site uses `npm run test:server` (port 3124), never
+`next start` with real settings. It sets `NEXT_PUBLIC_SITE_TEST_RUN=1`: no
+Formspree id, no studio except a localhost one (`--studio
+http://localhost:3171`), no Maps key, forms in test mode. It refuses to start
+if an env file holds a real Formspree id, studio address, intake secret or
+Maps key, and `next.config.ts` refuses the build too. So a test can never land
+in Pierre's inbox, his studio or his email. Checked by
+`scripts/check-test-run.ts`.
+
 ### Address suggestions: Pierre's Google key (about 10 minutes, optional)
 
 In Pierre's own Google Cloud account (a billing account is required; Google's

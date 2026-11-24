@@ -20,7 +20,7 @@
 // vat_cents = 0, total_cents, ...). See buildBookingPayload in pricing.ts.
 import { CLIENT_TYPE_LABELS, TIME_WINDOW_LABELS, buildBookingPayload, usd, type ClientType, type TimeWindow } from "@/lib/pricing";
 import { site } from "@/config/site";
-import { visitFrom } from "@/lib/intake";
+import { formspreeId, studioConfig, visitFrom } from "@/lib/intake";
 
 export const maxDuration = 30;
 
@@ -51,16 +51,7 @@ function sameOrigin(req: Request): boolean {
   }
 }
 
-function studioConfig(): { url: string; secret: string } | null {
-  const url = (process.env.STUDIO_URL || "").trim().replace(/\/+$/, "");
-  const secret = (process.env.STUDIO_INTAKE_SECRET || "").trim();
-  return /^https?:\/\//.test(url) && secret ? { url, secret } : null;
-}
 
-function formspreeId(): string | null {
-  const id = (process.env.NEXT_PUBLIC_FORMSPREE_ID || process.env.FORMSPREE_ID || "").trim();
-  return id && id !== "YOUR_FORM_ID" && /^[A-Za-z0-9]+$/.test(id) ? id : null;
-}
 
 type Obj = Record<string, unknown>;
 const obj = (v: unknown): Obj => (v && typeof v === "object" && !Array.isArray(v) ? (v as Obj) : {});

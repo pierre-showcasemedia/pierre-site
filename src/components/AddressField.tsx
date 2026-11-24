@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { site } from "@/config/site";
+import { TEST_RUN } from "@/lib/test-run";
 
 // The property address on the booking form, with Google address suggestions
 // and the driving distance from the studio (Pierre, Nov 23 2026).
@@ -16,7 +17,7 @@ import { site } from "@/config/site";
 //
 // The distance is an estimate shown to the client and passed to the studio
 // in the notes. It never changes a price: travel is confirmed by Pierre.
-const KEY = (process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "").trim();
+const KEY = TEST_RUN ? "" : (process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "").trim(); // never in a local test run
 const ORIGIN = site.address; // the studio, public on the contact page
 
 export type PickedAddress = { address: string; state: string | null; miles: number | null };

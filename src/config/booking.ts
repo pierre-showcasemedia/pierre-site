@@ -5,14 +5,16 @@
    case buttons, no em dashes, no exclamation marks.
    ===================================================================== */
 import { site } from "@/config/site";
+import { TEST_RUN } from "@/lib/test-run";
 import { CONFIRM_WITHIN, TURNAROUND, type ClientType, type ItemGroup, type TimeWindow } from "@/lib/pricing";
 
 export const BOOKING = {
   // The contact form (components/ContactForm.tsx) still posts to Formspree
   // from the browser and reads these two. The booking form posts to
   // /api/booking instead, which reads its own server env (README "Booking form").
-  formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "YOUR_FORM_ID",
-  testMode: process.env.NEXT_PUBLIC_BOOKING_TEST_MODE !== "false",
+  // A local test run (src/lib/test-run.ts) never has a form id and is always in test mode.
+  formspreeId: TEST_RUN ? "YOUR_FORM_ID" : (process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "YOUR_FORM_ID"),
+  testMode: TEST_RUN || process.env.NEXT_PUBLIC_BOOKING_TEST_MODE !== "false",
 
   person: "Pierre",
   confirmWithin: CONFIRM_WITHIN,

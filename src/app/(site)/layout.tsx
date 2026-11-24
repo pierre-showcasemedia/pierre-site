@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { VisitSource } from "@/components/VisitSource";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,6 +11,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       </Suspense>
       <main>{children}</main>
       <Footer />
+      <VisitSource />
     </>
   );
 }

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/config/site";
+import { services, site } from "@/config/site";
 import { projects } from "@/lib/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/portfolio", "/services", "/about", "/contact", "/book"].map((p) => ({
+  const pages = ["", "/portfolio", "/services", ...services.map((s) => `/services/${s.slug}`), "/pricing", "/about", "/contact", "/book"].map((p) => ({
     url: `${site.url}${p}`,
     changeFrequency: "monthly" as const,
     priority: p === "" ? 1 : 0.7,

@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { AddressField, type PickedAddress } from "@/components/AddressField";
 import { BOOKING } from "@/config/booking";
+import { readVisit } from "@/components/VisitSource";
 import { site } from "@/config/site";
 import {
   AREAS,
@@ -14,6 +16,7 @@ import {
   PICK_ONE_IDS,
   QUOTED_CLIENT_TYPES,
   TIME_WINDOW_LABELS,
+  TRAVEL_FREE_MILES,
   inSentence,
   isOutsideArea,
   perUnit,
@@ -44,6 +47,7 @@ type Data = {
   company: string; // the brokerage, for an agent
   address: string;
   area: string;
+  miles: number | null; // driving miles from the studio, when address suggestions are on
   launchDate: string;
   pkg: PackageId | "";
   items: Record<string, Picked>;
@@ -65,6 +69,7 @@ const EMPTY: Data = {
   company: "",
   address: "",
   area: "",
+  miles: null,
   launchDate: "",
   pkg: "",
   items: {},
@@ -121,6 +126,15 @@ function lineDetail(l: PricedLine): string | null {
   return l.priced && l.unitCents ? `${l.qty} ${l.unit} at ${usd(l.unitCents)}` : `${l.qty} ${l.unit}`;
 }
 
+// The area for a picked address: within the free travel distance, or by state.
+function areaFor(p: PickedAddress): string | null {
+  if (p.miles == null) return null;
+  if (p.miles <= TRAVEL_FREE_MILES) return AREAS[0];
+  if (p.state === "WI") return "Elsewhere in Wisconsin";
+  if (p.state === "IL") return "Northern Illinois";
+  return "Somewhere else";
+}
+
 const linePrice = (l: PricedLine) => (!l.priced ? "Quoted" : l.from ? `From ${usd(l.cents)}` : usd(l.cents));
 
 function Label({ htmlFor, children, optional }: { htmlFor: string; children: React.ReactNode; optional?: boolean }) {
@@ -144,6 +158,9 @@ export function BookingForm() {
   const gotcha = useRef<HTMLInputElement>(null);
   const top = useRef<HTMLDivElement>(null);
   const submissionId = useRef("");
+  const [plat, setPlat] = useState<{ key: string; name: string } | null>(null);
+  const [platState, setPlatState] = useState<"idle" | "sending" | "error">("idle");
+  const [platErr, setPlatErr] = useState("");
 
   const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((prev) => prune({ ...prev, [k]: v }));
 
@@ -182,6 +199,7 @@ export function BookingForm() {
       if (!d.area) return "Please choose the area.";
     }
     if (step === 2 && !d.pkg) return "Please pick the size of the property.";
+    if (step === 2 && platState === "sending") return "Please wait a moment while the plat map uploads.";
     if (step === 2 && d.platLink.trim() && !/^https?:\/\/\S+\.\S+/.test(d.platLink.trim())) return "The plat map link should be a full web address, starting with https://";
     if (step === 3 && !hasOrder) return "Please pick a package in the last step, or a service booked on its own here.";
     if (step === 4) {
@@ -210,12 +228,52 @@ export function BookingForm() {
       launch_date: d.launchDate || null,
       package: d.pkg || null,
       items: priced.items.map((i) => ({ id: i.id, qty: i.qty, option: i.option })),
-      notes: [d.notes.trim(), d.acreage.trim() && `Acreage notes: ${d.acreage.trim()}`, d.platLink.trim() && `Plat or lot map: ${d.platLink.trim()}`].filter(Boolean).join("\n\n") || null,
+      notes: [d.notes.trim(), d.acreage.trim() && `Acreage notes: ${d.acreage.trim()}`, d.platLink.trim() && `Plat or lot map: ${d.platLink.trim()}`, d.miles != null && `Driving distance from the studio: about ${d.miles} miles (estimated on the form)`].filter(Boolean).join("\n\n") || null,
       agreed_to_terms: true,
       total_cents: priced.totalCents,
       pricing_hash: priced.hash,
       pricing_version: priced.version,
+      attachments: plat && plat.key !== "test" ? [{ key: plat.key, name: plat.name, kind: "plat" }] : [],
+      visit: readVisit(),
     };
+  }
+
+  // A plat or lot map file (Nov 24 2026). The studio hands out a short-lived
+  // upload address and the file goes straight to its storage; the booking
+  // carries the file's key. If uploads aren't on, the link box still works.
+  const PLAT_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
+  async function uploadPlat(file: File | undefined) {
+    if (!file) return;
+    setPlatErr("");
+    if (!PLAT_TYPES.includes(file.type)) {
+      setPlatErr("Please attach a PDF or a photo (JPG, PNG, WebP or HEIC).");
+      setPlatState("error");
+      return;
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      setPlatErr("That file is over 25 MB. Please attach a smaller one, or paste a link instead.");
+      setPlatState("error");
+      return;
+    }
+    if (BOOKING.testMode) {
+      setPlat({ key: "test", name: file.name });
+      setPlatState("idle");
+      return;
+    }
+    if (!submissionId.current) submissionId.current = newId();
+    setPlatState("sending");
+    try {
+      const r = await fetch("/api/plat-upload", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ submission_id: submissionId.current, filename: file.name, content_type: file.type, size: file.size }) });
+      const j = (await r.json().catch(() => ({}))) as { ok?: boolean; url?: string; key?: string; error?: string };
+      if (!r.ok || !j.ok || !j.url || !j.key) throw new Error(j.error || "We couldn't take that file just now. Please paste a link instead.");
+      const put = await fetch(j.url, { method: "PUT", headers: { "Content-Type": file.type }, body: file });
+      if (!put.ok) throw new Error("The upload didn't finish. Please try again, or paste a link instead.");
+      setPlat({ key: j.key, name: file.name });
+      setPlatState("idle");
+    } catch (e) {
+      setPlatErr(e instanceof Error ? e.message : "Please try again.");
+      setPlatState("error");
+    }
   }
 
   async function submit() {
@@ -393,7 +451,15 @@ export function BookingForm() {
                 <h2 className="display text-4xl md:text-6xl">Where&apos;s the shoot?</h2>
                 <p className="mt-5 text-[17px] text-ink-soft">{BOOKING.areaLine}</p>
                 <Label htmlFor="address">Property address</Label>
-                <input id="address" className="field" autoComplete="street-address" placeholder="Street address and city" value={d.address} onChange={(e) => set("address", e.target.value)} />
+                <AddressField
+                  id="address"
+                  value={d.address}
+                  onType={(v) => setD((prev) => ({ ...prev, address: v, miles: null }))}
+                  onPick={(p) => setD((prev) => ({ ...prev, address: p.address, miles: p.miles, area: areaFor(p) ?? prev.area }))}
+                />
+                {d.miles != null ? (
+                  <p className="mt-2 text-sm text-mute">About {d.miles} driving {d.miles === 1 ? "mile" : "miles"} from our studio. We confirm any travel with you.</p>
+                ) : null}
                 <Label htmlFor="area">Area</Label>
                 <select id="area" className="field" value={d.area} onChange={(e) => set("area", e.target.value)}>
                   <option value="">Choose the area</option>
@@ -455,6 +521,24 @@ export function BookingForm() {
                 <textarea id="acreage" rows={2} className="field resize-none" placeholder="The lot size and anything about the land, for example 15 acres with a pond and a barn" value={d.acreage} onChange={(e) => set("acreage", e.target.value)} />
                 <Label htmlFor="platLink" optional>Plat or lot map link</Label>
                 <input id="platLink" type="url" inputMode="url" className="field" placeholder="https:// a link to the plat map, so we know the boundaries for drone work" value={d.platLink} onChange={(e) => set("platLink", e.target.value)} />
+                <Label htmlFor="platFile" optional>Or attach the plat map</Label>
+                {plat ? (
+                  <p className="mt-3 flex flex-wrap items-center gap-4 text-[15px] text-ink-soft">
+                    <span>Attached: {plat.name}{plat.key === "test" ? " (test mode, not uploaded)" : ""}</span>
+                    <button type="button" className="label link-underline pb-1 text-mute" onClick={() => setPlat(null)}>Remove</button>
+                  </p>
+                ) : (
+                  <input
+                    id="platFile"
+                    type="file"
+                    accept="application/pdf,image/jpeg,image/png,image/webp,image/heic,image/heif"
+                    className="mt-3 block w-full text-[15px] text-ink-soft file:mr-4 file:border file:border-line file:bg-white/60 file:px-4 file:py-2 file:text-[13px] file:uppercase file:tracking-[0.12em] file:text-ink hover:file:border-ink"
+                    disabled={platState === "sending"}
+                    onChange={(e) => void uploadPlat(e.target.files?.[0])}
+                  />
+                )}
+                <p className="mt-2 text-sm text-mute">{platState === "sending" ? "Uploading" : "A PDF or a photo, up to 25 MB."}</p>
+                {platState === "error" ? <p role="alert" className="mt-2 text-sm text-accent">{platErr}</p> : null}
                 {d.pkg ? (
                   <>
                     <h3 className="display mt-14 text-3xl md:text-4xl">Pick a package</h3>
@@ -611,9 +695,11 @@ export function BookingForm() {
                       [isAgent ? "Brokerage" : "Company", d.company.trim()],
                       ["Property", where],
                       ["Area", d.area],
+                      ["Distance", d.miles != null ? `About ${d.miles} driving miles from our studio` : ""],
                       ["Property size", PACKAGES.find((p) => p.id === d.pkg)?.name ?? ""],
                       ["Acreage notes", d.acreage.trim()],
                       ["Plat or lot map", d.platLink.trim()],
+                      ["Plat map file", plat?.name ?? ""],
                       ["Package", service?.name ?? ""],
                       ["When", d.date ? `${longDate(d.date)}, ${windowLabel}` : ""],
                       ["Listing goes live", longDate(d.launchDate)],

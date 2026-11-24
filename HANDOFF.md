@@ -108,6 +108,51 @@ option is a video without the logo, with his logo laid over it as a sharp
 image; that needs a no-logo version from him. He also has an animated logo
 (ShowcaseMediaAnimate01.mp4) that isn't used yet.
 
+## New pages and booking form additions (branch `new-scope`, Nov 24 2026)
+
+Built at Hammad's go-ahead (Nov 24) on the `new-scope` branch, not on `main`,
+from Pierre's review call list:
+
+- **A page per service:** `/services/photography`, `/services/aerial`,
+  `/services/tours`, `/services/video`, `/services/twilight`,
+  `/services/staging`, `/services/portraits`. Words from `services` in
+  `src/config/site.ts`, what can be booked from `src/lib/service-catalog.ts`.
+  They show no prices and link to `/pricing`.
+- **Pricing page** (`/pricing`, in the menu): every price from
+  `src/lib/pricing.ts`, behind a short form (name and email, phone and "I am"
+  optional). Each lead goes to the studio (Admin, Leads) and to Formspree;
+  the browser then keeps the list open. A soft gate: the booking form still
+  shows prices as it is filled in. Test mode opens it without sending.
+- **Address suggestions and distance** on the booking form, once Pierre adds
+  his own key (below). The driving distance from the studio picks the area
+  and goes to the studio in the notes. It never changes a price.
+- **Plat map upload** on the booking form (PDF or photo, up to 25 MB), next
+  to the plat map link. Needs the studio's R2 CORS rule to list the
+  website's addresses (studio HANDOFF, section 6).
+- **Visit sources:** the first page, the referring site and any UTM tags,
+  kept for the browser tab only (no cookies) and sent with a lead or booking.
+- Checks: `scripts/check-service-pages.ts`.
+
+### Address suggestions: Pierre's Google key (about 10 minutes, optional)
+
+In Pierre's own Google Cloud account (a billing account is required; Google's
+monthly free usage covers a small business, and a budget alert is wise):
+
+1. Create a project, for example "Showcase website".
+2. APIs and Services, enable **Maps JavaScript API**, **Places API (New)**
+   and **Routes API** (or **Distance Matrix API** if Google still offers it
+   to the project; the form tries that first, then the Routes API).
+3. Credentials, **Create credentials, API key**. Restrict it: Application
+   restrictions **Websites**, add `https://www.showcasemedia.pro/*`,
+   `https://showcasemedia.pro/*` and the preview `.vercel.app` address; API
+   restrictions, the APIs above only.
+4. Vercel, pierre-site, Environment Variables: `NEXT_PUBLIC_GOOGLE_MAPS_KEY`
+   = the key, Production and Preview. Redeploy.
+
+This is a browser key: it is visible to visitors by design, which is why the
+restrictions matter. Without it the address box is plain typing, as before.
+Google's terms ask for the "Suggestions by Google" line under the list.
+
 ## Open items
 
 - Past galleries: `site.pastGalleries.show` in `src/config/site.ts` adds a

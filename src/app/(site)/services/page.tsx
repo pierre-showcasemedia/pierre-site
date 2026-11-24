@@ -40,11 +40,12 @@ export default function ServicesPage() {
                 <div id={s.slug} className="grid gap-8 md:grid-cols-12 md:items-center">
                   <p className="figures text-5xl text-accent md:col-span-1">{String(i + 1).padStart(2, "0")}</p>
                   <div className="md:col-span-5">
-                    <h2 className="display text-3xl md:text-5xl">{s.name}</h2>
+                    <h2 className="display text-3xl md:text-5xl"><Link href={`/services/${s.slug}`} className="hover:text-accent">{s.name}</Link></h2>
                     {s.included ? <p className="label mt-4 text-accent">Included with every shoot</p> : null}
                     <p className="mt-5 max-w-md text-[17px] leading-relaxed text-ink-soft">{s.body}</p>
                     <div className="mt-8 flex flex-wrap gap-6">
-                      <Link href="/book" className="label link-underline pb-1">Book this</Link>
+                      <Link href={`/services/${s.slug}`} className="label link-underline pb-1">More about {s.short.toLowerCase().startsWith("3d") ? "3D tours" : s.short.toLowerCase()}</Link>
+                      <Link href="/book" className="label link-underline pb-1 text-mute">Book this</Link>
                       {s.examples ? (
                         <Link href={s.examples} className="label link-underline pb-1 text-mute">See examples</Link>
                       ) : null}

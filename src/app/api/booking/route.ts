@@ -20,6 +20,7 @@
 // vat_cents = 0, total_cents, ...). See buildBookingPayload in pricing.ts.
 import { CLIENT_TYPE_LABELS, TIME_WINDOW_LABELS, buildBookingPayload, usd, type ClientType, type TimeWindow } from "@/lib/pricing";
 import { site } from "@/config/site";
+import { visitFrom } from "@/lib/intake";
 
 export const maxDuration = 30;
 
@@ -100,6 +101,8 @@ function archiveCopy(p: Obj): Obj {
     to_confirm: (Array.isArray(p.quote_reasons) ? p.quote_reasons : []).join(" "),
     access_notes: prop.access ?? "",
     notes: p.notes ?? "",
+    plat_map_file: Array.isArray(p.attachments) && p.attachments.length ? `${(p.attachments as Obj[]).map((a) => text(a.name)).join(", ")} (open it from the booking in the studio)` : "",
+    came_from: (() => { const v = obj(p.visit); return [text(v.utm_source), text(v.utm_medium), text(v.utm_campaign)].filter(Boolean).join(" / ") || text(v.referrer) || "direct"; })(),
   };
 }
 
@@ -120,6 +123,14 @@ export async function POST(req: Request) {
   const built = buildBookingPayload(input, submissionId);
   if (!built.ok) return Response.json({ ok: false, error: `Please check the form (${built.error}).` }, { status: 400 });
   const payload = built.payload;
+  // Nov 24 2026: an uploaded plat map (only keys under this booking's own
+  // submission id, the shape /api/plat-upload hands out) and where the visit
+  // came from. Both ride in the payload the studio stores on the booking.
+  const keyRe = new RegExp(`^intake/${submissionId}/[a-z0-9]{6,16}-[A-Za-z0-9._-]{1,80}$`);
+  const attachments = (Array.isArray(input.attachments) ? input.attachments : []).slice(0, 3).map(obj).filter((a) => keyRe.test(text(a.key, 200))).map((a) => ({ key: text(a.key, 200), name: text(a.name, 120) || "plat-map", kind: "plat" }));
+  if (attachments.length) payload.attachments = attachments;
+  const visit = visitFrom(input);
+  if (Object.keys(visit).length) payload.visit = visit;
 
   const studio = studioConfig();
   const formspree = formspreeId();

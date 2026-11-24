@@ -97,6 +97,7 @@ export const heroFilm: HeroFilm = {
 export const nav = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -154,7 +155,7 @@ export type Service = {
   body: string;
   image: string; // the poster: shown first, and the still when motion is off
   clip: ServiceClip | null;
-  href?: string; // where the home page card goes: the service's section on /services
+  href?: string; // where the home page card goes: the service's own page, /services/[slug]
   examples?: string; // where "See examples" goes on /services; no link when there are no examples yet
   included?: boolean; // comes with every shoot
 };
@@ -167,7 +168,7 @@ export const services: Service[] = [
     body: "Up to 40 images with Showcase editing: HDR detail, blue sky replacement as needed, window views, fire in the fireplaces and green grass. A free floor plan* comes with every shoot, up to 3,000 sq ft of total scanned space.",
     image: "/images/site/service-photography.jpg",
     clip: null,
-    href: "/services#photography", examples: "/portfolio",
+    href: "/services/photography", examples: "/portfolio",
   },
   {
     slug: "aerial",
@@ -176,7 +177,7 @@ export const services: Service[] = [
     body: "Drone photos and cinematic aerial video that show the property and the area around it. FAA certified drone pilot.",
     image: "/images/site/service-aerial.jpg",
     clip: null,
-    href: "/services#aerial", examples: "/portfolio",
+    href: "/services/aerial", examples: "/portfolio",
   },
   {
     slug: "tours",
@@ -185,7 +186,7 @@ export const services: Service[] = [
     body: "Matterport and Zillow 3D virtual tours, hosted for up to a year, with a free basic floor plan* up to 3,000 sq ft scanned. Larger, schematic, 3D and CAD floor plans on request.",
     image: "/images/site/service-tours.jpg",
     clip: null,
-    href: "/services#tours",
+    href: "/services/tours",
   },
   {
     slug: "video",
@@ -194,7 +195,7 @@ export const services: Service[] = [
     body: "Walkthrough videos edited to music with aerial intro and closing clips, an agent guided tour option, and advanced imaging effects.",
     image: "/images/site/service-video.jpg",
     clip: null,
-    href: "/services#video", examples: "/portfolio/video",
+    href: "/services/video", examples: "/portfolio/video",
   },
   {
     slug: "twilight",
@@ -203,7 +204,7 @@ export const services: Service[] = [
     body: "Real twilight photography near dusk, or virtual twilight from your daytime exteriors.",
     image: "/images/site/service-twilight.jpg",
     clip: null,
-    href: "/services#twilight", examples: "/portfolio",
+    href: "/services/twilight", examples: "/portfolio",
   },
   {
     slug: "staging",
@@ -212,7 +213,7 @@ export const services: Service[] = [
     body: "Empty rooms furnished in the photo, with many decor styles to choose from.",
     image: "/images/site/service-staging.jpg",
     clip: null,
-    href: "/services#staging",
+    href: "/services/staging",
   },
   {
     slug: "portraits",
@@ -221,7 +222,7 @@ export const services: Service[] = [
     body: "Environmental business portraits and group portraits, photographed at your business.",
     image: "/images/site/service-portraits.jpg",
     clip: null,
-    href: "/services#portraits",
+    href: "/services/portraits",
   },
 ];
 

@@ -111,6 +111,9 @@ export async function POST(req: Request) {
   if (text(input._gotcha)) return Response.json({ ok: true, via: "honeypot" });
   const given = text(input.submission_id, 64);
   const submissionId = UUID_RE.test(given) ? given.toLowerCase() : crypto.randomUUID();
+  // Travel miles only ever come from this server (none yet: the browser's
+  // estimate is in the notes); a browser-sent value is dropped (Nov 24 2026).
+  delete input.travel_miles;
   const built = buildBookingPayload(input, submissionId);
   if (!built.ok) return Response.json({ ok: false, error: `Please check the form (${built.error}).` }, { status: 400 });
   const payload = built.payload;

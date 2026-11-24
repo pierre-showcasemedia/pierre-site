@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { AddressField, type PickedAddress } from "@/components/AddressField";
 import { BOOKING } from "@/config/booking";
 import { readVisit } from "@/components/VisitSource";
+import { againFromQuery, cleanPrefill, scrubbedSearch } from "@/lib/book-again";
 import { site } from "@/config/site";
 import {
   AREAS,
@@ -163,6 +164,56 @@ export function BookingForm() {
   const [platErr, setPlatErr] = useState("");
 
   const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((prev) => prune({ ...prev, [k]: v }));
+
+  // Book again (studio template, Nov 24 2026; off in the studio until Pierre
+  // turns it on): the client portal links here with a signed token, the
+  // address and the last order. Only known ids are taken; prices always come
+  // from pricing.ts. The name, email, phone, company and type come from
+  // /api/book-again (this site's server asks the studio), never the query.
+  // The token and any personal fields are wiped from the address bar.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const again = againFromQuery(q);
+    if (!again.on) return;
+    window.history.replaceState(window.history.state, "", `${window.location.pathname}${scrubbedSearch(q)}${window.location.hash}`);
+    const items: Record<string, Picked> = {};
+    for (const id of again.items) {
+      const it = ITEM.get(id);
+      if (it && !it.adminOnly) items[id] = { qty: 1, option: it.options?.[0]?.id ?? null } as Picked;
+    }
+    const isType = (t: string) => BOOKING.clientTypes.some((c) => c.id === t);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time read of the URL after hydration
+    setD((prev) =>
+      prune({
+        ...prev,
+        clientType: isType(again.type) ? (again.type as ClientType) : prev.clientType,
+        address: again.address || prev.address,
+        pkg: PACKAGES.some((p) => p.id === again.pkg) ? (again.pkg as PackageId) : prev.pkg,
+        items: Object.keys(items).length ? items : prev.items,
+      })
+    );
+    if (!again.token) return;
+    // No cleanup on purpose: the address bar is already wiped, so a second
+    // run of this effect (React's dev double run) finds nothing to do.
+    fetch(`/api/book-again?token=${encodeURIComponent(again.token)}`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((j: unknown) => {
+        const p = (j as { ok?: boolean })?.ok ? cleanPrefill(j) : null;
+        if (!p) return;
+        // Only fill what the client has not typed yet.
+        setD((prev) =>
+          prune({
+            ...prev,
+            clientType: !prev.clientType && isType(p.type) ? (p.type as ClientType) : prev.clientType,
+            name: prev.name || [p.firstName, p.lastName].filter(Boolean).join(" "),
+            email: prev.email || p.email,
+            phone: prev.phone || p.phone,
+            company: prev.company || p.company,
+          })
+        );
+      })
+      .catch(() => {});
+  }, []);
 
   const isAgent = d.clientType === "agent";
   const quotedClient = Boolean(d.clientType && QUOTED_CLIENT_TYPES.includes(d.clientType));

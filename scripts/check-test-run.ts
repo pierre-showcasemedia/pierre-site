@@ -52,7 +52,7 @@ async function main() {
   ok(read("src/components/AddressField.tsx").includes('const KEY = TEST_RUN ? ""'), "a test run never uses the Maps key");
   const route = read("src/app/api/booking/route.ts");
   ok(!/function (studioConfig|formspreeId)\(/.test(route) && route.includes('import { formspreeId, studioConfig'), "the booking route uses the guarded settings");
-  for (const f of ["src/app/api/pricing-lead/route.ts", "src/app/api/plat-upload/route.ts"]) {
+  for (const f of ["src/app/api/pricing-lead/route.ts", "src/app/api/plat-upload/route.ts", "src/lib/book-again-server.ts"]) {
     ok(!/process\.env\.(STUDIO_URL|NEXT_PUBLIC_FORMSPREE_ID|FORMSPREE_ID)/.test(read(f)), `${f} reads settings only through the guard`);
   }
   ok(/fetch\(`https:\/\/formspree\.io\/f\/\$\{BOOKING\.formspreeId\}`/.test(read("src/components/ContactForm.tsx")) && /if \(BOOKING\.testMode\)/.test(read("src/components/ContactForm.tsx")), "the contact form checks test mode before Formspree");

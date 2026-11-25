@@ -258,8 +258,14 @@ export const howItWorks = [
 // Films on YouTube (or Vimeo: "vimeo:<id>").
 export const films: { title: string; video: string; cover: string; location: string }[] = [];
 
-// Matterport model ids (the part after ?m= in the share link). Empty until Pierre sends tour links.
-export const tours: { title: string; matterport: string; cover: string }[] = [];
+// 3D tours from Pierre's embed codes (Nov 25 2026). Paste only the address
+// inside src="..." of the embed code: Matterport (my.matterport.com/show/?m=)
+// or Zillow (www.zillow.com/view-imx/). Shown on Portfolio and /services/tours.
+export type Tour = { title: string; kind: "matterport" | "zillow"; src: string };
+export const tours: Tour[] = [
+  { title: "Matterport 3D tour", kind: "matterport", src: "https://my.matterport.com/show/?m=jGmuVQBTaaB" },
+  { title: "Zillow 3D tour", kind: "zillow", src: "https://www.zillow.com/view-imx/8ba0b55a-275a-4188-b1b8-05836bf048da?setAttribution=mls&wl=true&initialViewType=pano&utm_source=dashboard" },
+];
 
 // The credentials list on the About page (from his About page).
 export const gear = [

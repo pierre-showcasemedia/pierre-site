@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToursSection } from "@/components/ToursSection";
 import { CtaBand } from "@/components/CtaBand";
 import { Gallery } from "@/components/Gallery";
 import { PageHeader } from "@/components/PageHeader";
@@ -60,6 +61,7 @@ export default function PortfolioPage() {
           </div>
         </section>
       ) : null}
+      <ToursSection />
       <CtaBand />
     </>
   );

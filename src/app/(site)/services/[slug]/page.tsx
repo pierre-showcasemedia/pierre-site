@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { ServiceMedia } from "@/components/ServiceMedia";
+import { ToursSection } from "@/components/ToursSection";
 import { services, site } from "@/config/site";
 import { getService, itemsFor } from "@/lib/service-catalog";
 
@@ -67,6 +68,8 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           <ServiceMedia service={s} sizes="100vw" />
         </div>
       </section>
+
+      {s.slug === "tours" ? <div className="pt-24 md:pt-32"><ToursSection eyebrow="Examples" title="Try a tour" /></div> : null}
 
       {items.length ? (
         <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-32">

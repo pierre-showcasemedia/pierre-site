@@ -7,10 +7,11 @@ import { nav, site } from "@/config/site";
 import { Logo } from "./Logo";
 
 // Floats transparent over the homepage hero, solid on every inner page and once you scroll.
-export function Nav() {
+export function Nav({ solid = false }: { solid?: boolean }) {
   const pathname = usePathname();
   // Pages that open on a full-bleed photo get the transparent nav.
-  const overHero = pathname === "/" || /^\/portfolio\/[^/]+$/.test(pathname);
+  // The 404 page passes solid: a mistyped gallery address has no photo under it.
+  const overHero = !solid && (pathname === "/" || /^\/portfolio\/[^/]+$/.test(pathname));
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -39,7 +40,9 @@ export function Nav() {
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,color] duration-500 ${
           transparent
             ? "border-b border-white/15 bg-transparent text-white"
-            : "border-b border-line bg-paper/95 text-ink backdrop-blur-md"
+            : open
+              ? "border-b border-white/15 bg-night text-white"
+              : "border-b border-line bg-paper/95 text-ink backdrop-blur-md"
         }`}
       >
         <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-5 md:px-10">
@@ -107,7 +110,7 @@ export function Nav() {
           <Link href="/book" onClick={() => setOpen(false)} className="btn btn-light w-full">Book a Shoot</Link>
           <a href={site.portalUrl} className="label text-center text-white/70">Client Login</a>
           {site.pastGalleries.show ? <a href={site.pastGalleries.url} className="label text-center text-white/50">{site.pastGalleries.label}</a> : null}
-          <div className="mt-4 flex justify-between text-sm text-white/60">
+          <div className="mt-4 flex flex-col items-center gap-2 text-sm text-white/60">
             <a href={`mailto:${site.email}`}>{site.email}</a>
             <a href={site.text}>Call or text {site.phoneDisplay}</a>
           </div>

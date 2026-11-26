@@ -11,7 +11,7 @@ export function Footer() {
           <div className="md:col-span-5">
             <Logo tone="white" variant="stacked" className="h-[104px] w-auto" />
             <p className="display mt-10 max-w-md text-4xl text-white/90 md:text-5xl">
-              Award-winning real estate and commercial photography, ready in 24 hours.
+              Award-winning real estate and commercial photography.
             </p>
             <Link href="/book" className="btn btn-light mt-10">Book a Shoot</Link>
           </div>
@@ -47,7 +47,7 @@ export function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
-          <p>© <Year /> Created by {site.name}. All Rights Reserved.</p>
+          <p>© <Year /> {site.legalName}. All rights reserved.</p>
           <p className="label text-[10px] text-white/35">{site.tagline}</p>
         </div>
       </div>

@@ -4,11 +4,11 @@ import { shownTours } from "@/lib/tours";
 
 // The 3D tours block on the Portfolio page and the 3D tours service page.
 // Nothing shows until site.ts has a tour.
-export function ToursSection({ eyebrow = "3D tours", title = "Walk through a home" }: { eyebrow?: string; title?: string }) {
+export function ToursSection({ eyebrow = "3D tours", title = "Walk through a home", className = "pb-28 md:pb-40" }: { eyebrow?: string; title?: string; className?: string }) {
   const list = shownTours();
   if (!list.length) return null;
   return (
-    <section className="mx-auto max-w-[1600px] px-5 pb-28 md:px-10 md:pb-40">
+    <section className={`mx-auto max-w-[1600px] px-5 md:px-10 ${className}`}>
       <Reveal>
         <p className="label text-mute">{eyebrow}</p>
         <h2 className="display mt-4 text-5xl md:text-6xl">{title}</h2>

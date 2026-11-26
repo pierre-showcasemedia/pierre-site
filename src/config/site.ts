@@ -61,12 +61,16 @@ export const site = {
 // the logo in the middle stays crisp): AV1 for browsers that play it, H.264
 // for every other computer, and a lighter 1280-wide file for phones. It plays
 // muted and looped behind the buttons, never with sound. Empty = the still only.
+// Pierre's film (Dark30 V2). src is a still from it, with the logo drawn,
+// shown only when the film can't play. loopFrom: the first scene after the
+// logo animation, where each loop carries on (seconds, a keyframe).
 export const hero = {
-  src: "/images/site/hero.jpg",
-  width: 2400,
-  height: 1600,
-  alt: "A home at twilight with every light on, photographed by Showcase Media",
+  src: "/images/site/hero-still.jpg",
+  width: 1920,
+  height: 1080,
+  alt: "Homes and the Madison area from the air, filmed by Showcase Media",
   video: { av1: "/clips/hero-1920-av1.mp4", mp4: "/clips/hero-1920.mp4", mobile: "/clips/hero-1280.mp4" },
+  loopFrom: 5.372,
 };
 
 // Kept from the shared template (components/ScrollHero.tsx). Pierre's homepage uses the still hero above.
@@ -195,7 +199,7 @@ export const services: Service[] = [
     name: "3D Virtual Tours & Floor Plans",
     short: "3D & Floor Plans",
     body: "Matterport and Zillow 3D virtual tours, hosted for up to a year, with a free basic floor plan* up to 3,000 sq ft scanned. Larger, schematic, 3D and CAD floor plans on request.",
-    image: "/images/site/service-tours.jpg",
+    image: "/images/site/service-3d-tours.jpg",
     clip: null,
     href: "/services/tours",
   },
@@ -204,7 +208,7 @@ export const services: Service[] = [
     name: "Video Walkthroughs",
     short: "Video",
     body: "Walkthrough videos edited to music with aerial intro and closing clips, an agent guided tour option, and advanced imaging effects.",
-    image: "/images/site/service-video.jpg",
+    image: "/images/site/service-walkthrough.jpg",
     clip: null,
     href: "/services/video", examples: "/portfolio/video",
   },

@@ -69,7 +69,7 @@ export default function AboutPage() {
               </div>
             </dl>
             <div className="mt-12 border-t border-line pt-6">
-              <p className="label text-mute">Credentials</p>
+              <p className="label text-mute">The details</p>
               <dl className="mt-4 grid gap-x-8 gap-y-2 text-sm text-mute sm:grid-cols-2">
                 {gear.map((g) => (
                   <div key={g.label} className="grid grid-cols-[6.5rem_1fr] gap-3">
@@ -89,7 +89,7 @@ export default function AboutPage() {
           <Reveal>
             <p className="label text-mute">Trusted by agents at</p>
           </Reveal>
-          <ul className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
             {trustedBy.map((name, i) => (
               <Reveal key={name} as="li" delay={i * 60} className="display border-t border-line pt-5 text-3xl md:text-4xl">
                 {name}

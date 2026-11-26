@@ -48,9 +48,9 @@ async function Project({ params }: Pick<PageProps<"/portfolio/[slug]">, "params"
     <>
       <section className="relative h-[86svh] min-h-[560px] overflow-hidden bg-night text-white">
         <Image src={cover.src} alt={p.name} fill preload sizes="100vw" className="animate-hero-drift object-cover" />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/25" />
         <div className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-end px-5 pb-14 md:px-10 md:pb-20">
-          <p className="label text-white/80">{p.location || site.country}</p>
+          <p className="label text-white">{p.location || site.country}</p>
           <h1 className="display mt-5 text-6xl md:text-8xl lg:text-[8rem]">{p.name}</h1>
         </div>
       </section>

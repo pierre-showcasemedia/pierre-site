@@ -82,7 +82,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </section>
       ) : null}
 
-      {s.slug === "tours" ? <div className="pt-24 md:pt-32"><ToursSection eyebrow="Examples" title="Try a tour" /></div> : null}
+      {s.slug === "tours" ? <div className="pt-24 md:pt-32"><ToursSection eyebrow="Examples" title="Try a tour" className="pb-0" /></div> : null}
 
       {items.length ? (
         <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-32">

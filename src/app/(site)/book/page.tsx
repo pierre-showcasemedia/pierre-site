@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
   return (
-    <section className="mx-auto max-w-[1600px] px-4 pb-28 pt-32 md:px-10 md:pb-40 md:pt-44">
+    <section className="mx-auto max-w-[1600px] px-5 pb-28 pt-32 md:px-10 md:pb-40 md:pt-44">
       <div className="mb-12 grid gap-6 border-b border-line pb-10 md:mb-14 md:grid-cols-12 md:items-end md:pb-12">
         <div className="md:col-span-7">
           <p className="label text-mute">Book a shoot</p>

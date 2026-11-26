@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
+import { HeroFilm } from "@/components/HeroFilm";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Reveal } from "@/components/Reveal";
 import { ServiceMedia } from "@/components/ServiceMedia";
@@ -48,41 +49,20 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* 1. Hero: a home at twilight */}
-      <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-night text-white">
-        <Image
-          src={hero.src}
-          alt={hero.alt}
-          fill
-          preload
-          sizes="100vw"
-          className="animate-hero-drift object-cover object-[50%_60%]"
-        />
-        {hero.video.mp4 ? (
-          <video
-            className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={hero.src}
-            aria-hidden="true"
-          >
-            {/* Phones take the lighter file; computers take AV1 where the
-                browser can play it, otherwise H.264. */}
-            {hero.video.mobile ? <source src={hero.video.mobile} type="video/mp4" media="(max-width: 767px)" /> : null}
-            {hero.video.av1 ? <source src={hero.video.av1} type='video/mp4; codecs="av01.0.08M.08"' /> : null}
-            <source src={hero.video.mp4} type="video/mp4" />
-          </video>
-        ) : null}
+      {/* 1. Hero: Pierre's film */}
+      {/* Phones and upright tablets see the whole film, 16:9 under the menu,
+          so Pierre's logo is never cropped; wide screens get it full screen. */}
+      <section className="relative overflow-hidden bg-night pt-20 text-white md:landscape:h-[100svh] md:landscape:min-h-[640px] md:landscape:pt-0">
+        <div className="relative aspect-video md:landscape:absolute md:landscape:inset-0 md:landscape:aspect-auto">
+          <HeroFilm video={hero.video} still={hero.src} alt={hero.alt} loopFrom={hero.loopFrom} />
+        </div>
         {/* Pierre, Nov 23 2026: a clean landing. His video carries the logo and
             its own darkening, so only a soft fade at the top (for the menu)
             and the bottom (for the buttons). The words come as they scroll. */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/45" />
-        <div className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-end px-5 pb-14 md:px-10 md:pb-20">
+        <div className="absolute inset-0 hidden bg-gradient-to-b from-black/35 via-transparent to-black/45 md:landscape:block" />
+        <div className="relative mx-auto flex max-w-[1600px] flex-col justify-end px-5 py-8 md:px-10 md:landscape:h-full md:landscape:pb-20 md:landscape:pt-0">
           <h1 className="sr-only">{site.name}: real estate and commercial photography, drone, 3D tours and video in {site.market}</h1>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="mx-auto flex w-full max-w-xs flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
             <Link href="/book" className="btn border-white bg-white text-ink hover:border-accent hover:bg-accent hover:text-white">
               Book a Shoot
             </Link>
@@ -128,7 +108,7 @@ export default function Home() {
       <section className="mx-auto max-w-[1600px] px-5 pb-24 md:px-10 md:pb-36">
         <div className="mb-10 flex items-end justify-between gap-6 md:mb-14">
           <Reveal>
-            <p className="label text-mute">Portfolio</p>
+            <p className="label text-mute">Selected work</p>
             <h2 className="display mt-4 text-5xl md:text-6xl">Portfolio</h2>
           </Reveal>
           <Link href="/portfolio" className="label link-underline hidden pb-1 sm:inline-block">Full portfolio</Link>
@@ -245,6 +225,10 @@ export default function Home() {
       {/* 8. Testimonials, only once real quotes are in config/site.ts */}
       {testimonials.length > 0 ? (
         <section className="border-t border-line py-24 md:py-36">
+          <Reveal className="mx-auto mb-14 max-w-[1600px] px-5 md:mb-20 md:px-10">
+            <p className="label text-mute">Kind words</p>
+            <h2 className="display mt-4 text-5xl md:text-6xl">What agents say</h2>
+          </Reveal>
           <div className="mx-auto grid max-w-[1600px] gap-16 px-5 md:grid-cols-3 md:px-10">
             {testimonials.map((t) => (
               <Reveal key={t.name}>
@@ -259,7 +243,7 @@ export default function Home() {
 
       {/* 9. Trusted by: the brokerages' logos once they arrive, else their names */}
       {brokerageLogos.length > 0 ? (
-        <section className="overflow-hidden border-y border-line py-12">
+        <section className="overflow-hidden border-y border-line py-12 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <p className="label mb-8 text-center text-mute">Trusted by agents at</p>
           <div className="flex w-max animate-marquee">
             {[0, 1].map((k) => (
@@ -280,7 +264,7 @@ export default function Home() {
           </div>
         </section>
       ) : trustedBy.length > 0 ? (
-        <section className="overflow-hidden border-y border-line py-12">
+        <section className="overflow-hidden border-y border-line py-12 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <p className="label mb-8 text-center text-mute">Trusted by agents at</p>
           <div className="flex w-max animate-marquee">
             {[0, 1].map((k) => (

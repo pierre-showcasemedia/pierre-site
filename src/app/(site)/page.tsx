@@ -4,7 +4,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Reveal } from "@/components/Reveal";
 import { ServiceMedia } from "@/components/ServiceMedia";
-import { hero, services, site, testimonials, trustedBy } from "@/config/site";
+import { brokerageLogos, hero, services, site, testimonials, trustedBy } from "@/config/site";
 import { projects } from "@/lib/projects";
 
 const jsonLd = {
@@ -257,8 +257,29 @@ export default function Home() {
         </section>
       ) : null}
 
-      {/* 9. Trusted by: brokerages named in his testimonials */}
-      {trustedBy.length > 0 ? (
+      {/* 9. Trusted by: the brokerages' logos once they arrive, else their names */}
+      {brokerageLogos.length > 0 ? (
+        <section className="overflow-hidden border-y border-line py-12">
+          <p className="label mb-8 text-center text-mute">Trusted by agents at</p>
+          <div className="flex w-max animate-marquee">
+            {[0, 1].map((k) => (
+              <div key={k} className="flex shrink-0 items-center" aria-hidden={k === 1}>
+                {[...brokerageLogos, ...brokerageLogos].map((b, i) => (
+                  <Image
+                    key={`${k}-${i}`}
+                    src={b.src}
+                    alt={k === 1 ? "" : b.name}
+                    width={b.w}
+                    height={b.h}
+                    sizes="200px"
+                    className="mx-10 h-12 w-auto object-contain opacity-80 grayscale md:h-14"
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : trustedBy.length > 0 ? (
         <section className="overflow-hidden border-y border-line py-12">
           <p className="label mb-8 text-center text-mute">Trusted by agents at</p>
           <div className="flex w-max animate-marquee">

@@ -5,7 +5,8 @@ import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { ServiceMedia } from "@/components/ServiceMedia";
 import { ToursSection } from "@/components/ToursSection";
-import { services, site } from "@/config/site";
+import { portraitGallery, services, site } from "@/config/site";
+import { Gallery } from "@/components/Gallery";
 import { getService, itemsFor } from "@/lib/service-catalog";
 
 // One page per service (Pierre, Nov 23 2026). The words come from site.ts,
@@ -68,6 +69,18 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           <ServiceMedia service={s} sizes="100vw" />
         </div>
       </section>
+
+      {s.slug === "portraits" && portraitGallery.length > 0 ? (
+        <section className="mx-auto max-w-[1600px] px-5 pt-24 md:px-10 md:pt-32">
+          <Reveal>
+            <p className="label text-mute">Examples</p>
+            <h2 className="display mt-4 text-5xl md:text-6xl">Business portraits</h2>
+          </Reveal>
+          <div className="mt-10">
+            <Gallery images={portraitGallery} alt={`${site.name} business portraits`} />
+          </div>
+        </section>
+      ) : null}
 
       {s.slug === "tours" ? <div className="pt-24 md:pt-32"><ToursSection eyebrow="Examples" title="Try a tour" /></div> : null}
 

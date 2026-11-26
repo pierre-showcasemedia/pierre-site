@@ -105,6 +105,17 @@ export const nav = [
 // Brokerages named in his testimonials (his current site).
 export const trustedBy: string[] = ["Stark Company Realtors", "Accord Realty", "eXp Realty", "Lauer Realty Group"];
 
+// Brokerage logos for "Trusted by" (Pierre's Dropbox folder, Nov 22 2026).
+// Empty until the files arrive: then the home page shows these logos in
+// place of the names above. Files go in public/images/brokerages/, one per
+// brokerage, transparent PNG or SVG; w and h are the file's pixel size.
+export const brokerageLogos: { name: string; src: string; w: number; h: number }[] = [];
+
+// Business portraits (Pierre's Dropbox folder, Nov 22 2026), shown on the
+// Business Portraits page. Empty until the files arrive. Files go in
+// public/images/portraits/; w and h are the file's pixel size.
+export const portraitGallery: { src: string; w: number; h: number; caption?: string }[] = [];
+
 // Word for word from the Testimonials section of his current site.
 export const testimonials: { quote: string; name: string; brokerage: string; photo?: string }[] = [
   {

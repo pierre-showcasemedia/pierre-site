@@ -54,7 +54,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             <span className="mx-2">/</span>
             {s.short}
           </p>
-          <h1 className="display mt-5 max-w-5xl text-6xl md:text-8xl">{s.name}</h1>
+          <h1 className="display mt-5 max-w-5xl text-5xl sm:text-6xl md:text-8xl">{s.name}</h1>
           <p className="mt-10 max-w-2xl text-[17px] leading-relaxed text-ink-soft">{s.body}</p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/book" className="btn">Book a Shoot</Link>

@@ -28,10 +28,10 @@ const TOKEN = "m7Qn0cXbS1y8Zt3KfV2pA9wLrE4uJ6hGdT5oN1iB8sC0xY_-";
 
 async function main() {
   // 1. the query
-  const fresh = againFromQuery(new URLSearchParams(`again=${TOKEN}&address=12+Elm+St%2C+Madison&items=photos,drone_addon`));
+  const fresh = againFromQuery(new URLSearchParams(`again=${TOKEN}&address=12+Example+Elm+St%2C+Madison&items=photos,drone_addon`));
   ok(fresh.on && fresh.token === TOKEN, "a new link: the token");
-  ok(fresh.address === "12 Elm St, Madison" && fresh.items.join(",") === "photos,drone_addon", "a new link: address and items");
-  const old = againFromQuery(new URLSearchParams("again=1&first=Taylor&last=Brooks&email=agent%40example.com&phone=5550100100&company=Brooks&type=agent&address=12+Elm+St&items=photos"));
+  ok(fresh.address === "12 Example Elm St, Madison" && fresh.items.join(",") === "photos,drone_addon", "a new link: address and items");
+  const old = againFromQuery(new URLSearchParams("again=1&first=Taylor&last=Brooks&email=agent%40example.com&phone=5550100100&company=Brooks&type=agent&address=12+Example+Elm+St&items=photos"));
   ok(old.on && old.token === null, "an old-style link is still Book again, with no token");
   ok(!JSON.stringify(old).includes("Taylor") && !JSON.stringify(old).includes("agent@example.com") && !JSON.stringify(old).includes("5550100100") && !JSON.stringify(old).includes("Brooks"), "no personal field is taken");
   ok(Object.keys(old).sort().join(",") === "address,items,on,pkg,token,type", "the query read has no personal keys at all");
